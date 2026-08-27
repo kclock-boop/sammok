@@ -3,35 +3,37 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>삼목기업 | 선박의장 현장 운영과 안전활동을 소개하는 홈페이지 초안</title>
-  <meta name="description" content="삼목기업의 선박의장 현장 특성과 안전활동, 운영 흐름, 대시보드 방향을 함께 소개하는 회사소개형 홈페이지 초안입니다.">
+  <title>삼목기업 | 조선·해양 협력 현장을 소개하는 홈페이지 초안</title>
+  <meta name="description" content="한화오션 협력사 맥락을 참고해 삼목기업의 조선·해양 현장 대응력, 안전·품질 운영 방향, 협업 신뢰를 소개하는 홈페이지 초안입니다.">
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.min.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
   <script src="https://code.iconify.design/iconify-icon/2.3.0/iconify-icon.min.js"></script>
   <script>
     tailwind.config = {
       theme: {
         extend: {
           colors: {
-            zincdeep: "#0a0d12",
-            ink: "#f6f4ef",
-            sand: "#d7d0c3",
-            stonepanel: "#14181f",
-            line: "rgba(255,255,255,0.10)",
-            amber: "#c89a46",
-            ambersoft: "#f0e1c2",
-            moss: "#7f9774"
+            deep: "#07111f",
+            navy: "#0d1c33",
+            steel: "#173153",
+            azure: "#2e5b93",
+            mist: "#f4f7fb",
+            line: "rgba(9, 30, 66, 0.12)",
+            orange: "#f37321",
+            orangeSoft: "#fff0e5"
+          },
+          boxShadow: {
+            panel: "0 24px 70px rgba(7, 17, 31, 0.10)",
+            float: "0 18px 50px rgba(7, 17, 31, 0.08)"
           },
           fontFamily: {
             sans: ["Pretendard", "Geist", "system-ui", "sans-serif"],
-            display: ["Geist", "Pretendard", "system-ui", "sans-serif"]
-          },
-          boxShadow: {
-            frame: "0 24px 70px rgba(0,0,0,0.26)",
-            plate: "0 18px 45px rgba(0,0,0,0.22)"
+            display: ["Geist", "Pretendard", "system-ui", "sans-serif"],
+            serif: ["Playfair Display", "serif"]
           }
         }
       }
@@ -42,178 +44,150 @@
     body {
       margin: 0;
       font-family: "Pretendard", "Geist", system-ui, sans-serif;
-      color: #f6f4ef;
+      color: #07111f;
       background:
-        radial-gradient(circle at 12% 12%, rgba(200,154,70,0.18), transparent 22%),
-        radial-gradient(circle at 88% 20%, rgba(127,151,116,0.12), transparent 18%),
-        linear-gradient(180deg, #090c10 0%, #0c1016 48%, #0a0d12 100%);
+        radial-gradient(circle at 8% 12%, rgba(243,115,33,0.10), transparent 24%),
+        radial-gradient(circle at 92% 8%, rgba(46,91,147,0.10), transparent 24%),
+        linear-gradient(180deg, #f8fbff 0%, #eef4fb 48%, #f8fbff 100%);
     }
     .break-kr { word-break: keep-all; }
-    .reveal {
-      opacity: 0;
-      transform: translateY(2rem);
-      filter: blur(4px);
-      transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .reveal.is-visible {
-      opacity: 1;
-      transform: translateY(0);
-      filter: blur(0);
-    }
-    .glass-pill {
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.10);
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.08);
-      backdrop-filter: blur(18px);
-    }
-    .double-bezel {
-      padding: 6px;
-      border-radius: 2rem;
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.08);
-      box-shadow: 0 24px 70px rgba(0,0,0,0.24);
-    }
-    .double-bezel > div {
-      border-radius: calc(2rem - 6px);
-      border: 1px solid rgba(255,255,255,0.08);
-      background: linear-gradient(180deg, rgba(20,24,31,0.96), rgba(14,18,24,0.98));
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.08);
-    }
-    .mesh::before {
+    .hero-grid::before {
       content: "";
       position: absolute;
       inset: 0;
       background:
-        linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
-      background-size: 34px 34px;
-      opacity: 0.12;
-      mask-image: linear-gradient(180deg, rgba(0,0,0,0.9), transparent 100%);
+        linear-gradient(rgba(255,255,255,0.08) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.08) 1px, transparent 1px);
+      background-size: 38px 38px;
+      opacity: 0.18;
       pointer-events: none;
     }
-    .grain {
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      z-index: 60;
-      opacity: 0.035;
-      background-image: radial-gradient(rgba(255,255,255,0.85) 0.7px, transparent 0.7px);
-      background-size: 18px 18px;
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: all 0.75s cubic-bezier(0.16, 1, 0.3, 1);
     }
-    .float {
-      animation: float 6s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+    .reveal.is-visible {
+      opacity: 1;
+      transform: translateY(0);
     }
-    .float.delay { animation-delay: 1.5s; }
-    .cta-btn, .nav-link, .lift {
-      transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    .lift, .nav-link, .cta-btn {
+      transition: all 0.45s cubic-bezier(0.16, 1, 0.3, 1);
     }
-    .cta-btn:hover, .lift:hover { transform: translateY(-3px) scale(1.02); }
-    .cta-btn:active { transform: scale(0.98); }
-    @keyframes float {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-12px); }
+    .lift:hover, .cta-btn:hover {
+      transform: translateY(-4px);
+    }
+    .soft-panel {
+      background: rgba(255,255,255,0.86);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(9, 30, 66, 0.10);
+      box-shadow: 0 24px 70px rgba(7, 17, 31, 0.08);
+    }
+    .nav-pill {
+      background: rgba(255,255,255,0.72);
+      border: 1px solid rgba(9, 30, 66, 0.10);
+      backdrop-filter: blur(16px);
     }
   </style>
 </head>
 <body>
-  <div class="grain"></div>
-
-  <header class="px-4 pt-5 sm:px-6 lg:px-8">
-    <div class="mx-auto flex max-w-7xl items-center justify-between gap-4 rounded-full glass-pill px-5 py-3">
+  <header class="sticky top-0 z-50 px-4 py-4 sm:px-6 lg:px-8">
+    <div class="mx-auto flex max-w-7xl items-center justify-between gap-4 rounded-full nav-pill px-5 py-3 shadow-float">
       <div class="flex items-center gap-3">
-        <div class="flex h-11 w-11 items-center justify-center rounded-2xl border border-[rgba(200,154,70,0.24)] bg-[rgba(200,154,70,0.12)] text-amber">
-          <iconify-icon icon="solar:buildings-2-linear" width="22"></iconify-icon>
+        <div class="flex h-11 w-11 items-center justify-center rounded-2xl bg-deep text-white">
+          <iconify-icon icon="solar:widget-6-linear" width="22"></iconify-icon>
         </div>
         <div>
-          <p class="text-[11px] font-bold uppercase tracking-[0.18em] text-ambersoft">Sammok Corporate Draft</p>
-          <p class="text-sm font-semibold text-ink">삼목기업 회사소개 홈페이지 초안</p>
+          <p class="text-[11px] font-bold uppercase tracking-[0.18em] text-azure">Sammok Draft</p>
+          <p class="text-sm font-semibold text-deep">삼목기업 기업소개 홈페이지 초안</p>
         </div>
       </div>
       <nav class="hidden items-center gap-5 md:flex">
-        <a class="nav-link text-sm text-sand hover:text-white" href="#about">회사 소개</a>
-        <a class="nav-link text-sm text-sand hover:text-white" href="#strength">핵심 강점</a>
-        <a class="nav-link text-sm text-sand hover:text-white" href="#operation">운영 방향</a>
-        <a class="nav-link text-sm text-sand hover:text-white" href="#archive">자료 보기</a>
-        <a class="nav-link text-sm text-sand hover:text-white" href="#contact">문의</a>
+        <a class="nav-link text-sm text-slate-600 hover:text-deep" href="#intro">회사 소개</a>
+        <a class="nav-link text-sm text-slate-600 hover:text-deep" href="#capability">역량</a>
+        <a class="nav-link text-sm text-slate-600 hover:text-deep" href="#system">운영체계</a>
+        <a class="nav-link text-sm text-slate-600 hover:text-deep" href="#archive">자료실</a>
+        <a class="nav-link text-sm text-slate-600 hover:text-deep" href="#contact">연결</a>
       </nav>
     </div>
   </header>
 
   <main>
-    <section id="about" class="relative min-h-[100dvh] px-4 pb-20 pt-12 sm:px-6 lg:px-8">
-      <div class="mesh absolute inset-0"></div>
-      <div class="float absolute left-[7%] top-24 h-40 w-40 rounded-full bg-[radial-gradient(circle,rgba(200,154,70,0.20),transparent_66%)] blur-2xl"></div>
-      <div class="float delay absolute right-[8%] top-36 h-56 w-56 rounded-full bg-[radial-gradient(circle,rgba(127,151,116,0.16),transparent_66%)] blur-2xl"></div>
-
-      <div class="relative z-10 mx-auto grid max-w-7xl gap-8 lg:grid-cols-[1.08fr_0.92fr] lg:items-center">
-        <div class="reveal break-kr">
-          <span class="inline-flex rounded-full border border-[rgba(200,154,70,0.24)] bg-[rgba(200,154,70,0.08)] px-4 py-2 text-[11px] font-bold uppercase tracking-[0.18em] text-ambersoft">
-            Company Introduction · Field Operation
-          </span>
-          <h1 class="mt-6 max-w-4xl font-display text-4xl font-bold leading-tight tracking-tight text-ink sm:text-5xl lg:text-6xl">
-            삼목기업의 선박의장 현장과
-            <span class="block text-amber">안전활동 운영 방향을 소개하는 홈페이지 초안</span>
-          </h1>
-          <p class="mt-6 max-w-2xl text-base leading-relaxed text-sand sm:text-lg">
-            삼목기업의 업무 특성과 현장 운영 관점을 바탕으로, 선박의장·안전활동·보고 체계를
-            대외에 자연스럽게 설명할 수 있도록 정리한 회사소개형 초안입니다.
-          </p>
-          <div class="mt-8 flex flex-col gap-4 sm:flex-row">
-            <a href="../docs/SAMMOK_ship_outfitting_safety_dashboard.html" class="cta-btn inline-flex min-h-12 items-center justify-center gap-3 rounded-full bg-amber px-8 py-4 text-base font-bold text-[#10151d] shadow-[0_18px_40px_rgba(200,154,70,0.18)]">
-              안전활동 대시보드 보기
-              <span class="flex h-9 w-9 items-center justify-center rounded-full bg-[#10151d] text-white">
-                <iconify-icon icon="solar:arrow-right-linear" width="18"></iconify-icon>
+    <section id="intro" class="px-4 pb-20 pt-6 sm:px-6 lg:px-8">
+      <div class="mx-auto max-w-7xl overflow-hidden rounded-[2.4rem] bg-[linear-gradient(135deg,#081427_0%,#102646_52%,#173153_100%)] text-white shadow-panel">
+        <div class="hero-grid relative">
+          <div class="absolute inset-0 bg-[radial-gradient(circle_at_18%_20%,rgba(243,115,33,0.22),transparent_26%),radial-gradient(circle_at_86%_16%,rgba(255,255,255,0.12),transparent_20%),linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0))]"></div>
+          <div class="relative z-10 grid gap-10 px-6 py-12 sm:px-8 lg:grid-cols-[1.15fr_0.85fr] lg:px-12 lg:py-16">
+            <div class="reveal break-kr">
+              <span class="inline-flex rounded-full border border-white/15 bg-white/10 px-4 py-2 text-[11px] font-bold uppercase tracking-[0.18em] text-white/90">
+                Ship Outfitting · Marine Partner · Field Reliability
               </span>
-            </a>
-            <a href="#archive" class="cta-btn inline-flex min-h-12 items-center justify-center gap-3 rounded-full border border-white/10 bg-white/5 px-8 py-4 text-base font-bold text-white">
-              회사 소개 자료 보기
-              <span class="flex h-9 w-9 items-center justify-center rounded-full bg-white/10 text-white">
-                <iconify-icon icon="solar:folder-with-files-linear" width="18"></iconify-icon>
-              </span>
-            </a>
-          </div>
-
-          <div class="mt-10 grid gap-4 sm:grid-cols-3">
-            <div class="rounded-[1.6rem] border border-white/10 bg-white/5 p-5 shadow-plate">
-              <p class="text-sm text-sand">주요 분야</p>
-              <p class="mt-2 text-2xl font-bold text-white">선박의장</p>
-            </div>
-            <div class="rounded-[1.6rem] border border-white/10 bg-white/5 p-5 shadow-plate">
-              <p class="text-sm text-sand">핵심 관점</p>
-              <p class="mt-2 text-2xl font-bold text-white">안전 · 보고 · 코칭</p>
-            </div>
-            <div class="rounded-[1.6rem] border border-white/10 bg-white/5 p-5 shadow-plate">
-              <p class="text-sm text-sand">공개 자료</p>
-              <p class="mt-2 text-2xl font-bold text-white">Dashboard · 회의자료</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="double-bezel reveal" style="transition-delay: 90ms;">
-          <div class="relative overflow-hidden p-7 lg:p-8">
-            <div class="absolute right-[-40px] top-[-28px] h-40 w-40 rounded-full bg-[radial-gradient(circle,rgba(200,154,70,0.14),transparent_70%)] blur-2xl"></div>
-            <div class="relative">
-              <p class="text-sm font-semibold text-ambersoft">Company Snapshot</p>
-              <h2 class="mt-3 break-kr text-3xl font-bold leading-snug text-white">
-                현장 성격과 운영 방향이 먼저 읽히는 구조로 정리했습니다
-              </h2>
-              <p class="mt-4 break-kr text-base leading-relaxed text-sand">
-                화려한 소개보다, 어떤 현장이고 어떤 운영 기준을 중요하게 보는지 먼저 전달되도록
-                회사 소개 흐름을 구성했습니다.
+              <h1 class="mt-6 max-w-4xl font-display text-4xl font-bold leading-tight tracking-tight sm:text-5xl lg:text-6xl">
+                조선·해양 현장에서
+                <span class="block text-orange">신뢰받는 협력 파트너의 역할을</span>
+                분명하게 보여주는 삼목기업 소개 초안
+              </h1>
+              <p class="mt-6 max-w-2xl text-base leading-relaxed text-slate-200 sm:text-lg">
+                한화오션 계열 대형 조선·해양 홈페이지의 톤을 참고해, 삼목기업을
+                현장 대응력·안전·품질·협업 실행력을 갖춘 협력사로 소개할 수 있도록 재구성한 페이지입니다.
               </p>
 
-              <div class="mt-8 grid gap-4">
-                <div class="rounded-[1.4rem] border border-white/10 bg-white/[0.04] p-5">
-                  <p class="text-sm text-sand">업무 특성</p>
-                  <p class="mt-2 text-lg font-bold text-white">의장 설치, 생산, 품질관리 흐름 중심</p>
+              <div class="mt-8 flex flex-col gap-4 sm:flex-row">
+                <a href="https://kclock-boop.github.io/sammok/docs/SAMMOK_ship_outfitting_safety_dashboard.html" class="cta-btn inline-flex min-h-12 items-center justify-center gap-3 rounded-full bg-orange px-8 py-4 text-base font-bold text-white shadow-[0_16px_36px_rgba(243,115,33,0.28)]">
+                  안전활동 대시보드 보기
+                  <span class="flex h-9 w-9 items-center justify-center rounded-full bg-white/18">
+                    <iconify-icon icon="solar:arrow-right-linear" width="18"></iconify-icon>
+                  </span>
+                </a>
+                <a href="#archive" class="cta-btn inline-flex min-h-12 items-center justify-center gap-3 rounded-full border border-white/16 bg-white/8 px-8 py-4 text-base font-bold text-white">
+                  공개 자료 함께 보기
+                  <span class="flex h-9 w-9 items-center justify-center rounded-full bg-white/10">
+                    <iconify-icon icon="solar:folder-with-files-linear" width="18"></iconify-icon>
+                  </span>
+                </a>
+              </div>
+
+              <div class="mt-10 grid gap-4 sm:grid-cols-3">
+                <div class="rounded-[1.6rem] border border-white/12 bg-white/8 p-5">
+                  <p class="text-sm text-slate-300">협업 맥락</p>
+                  <p class="mt-2 text-2xl font-bold text-white">조선·해양 협력사</p>
                 </div>
-                <div class="rounded-[1.4rem] border border-white/10 bg-white/[0.04] p-5">
-                  <p class="text-sm text-sand">핵심 관점</p>
-                  <p class="mt-2 text-lg font-bold text-white">추락, 협착, 화기작업, 통로관리 리스크</p>
+                <div class="rounded-[1.6rem] border border-white/12 bg-white/8 p-5">
+                  <p class="text-sm text-slate-300">핵심 가치</p>
+                  <p class="mt-2 text-2xl font-bold text-white">안전 · 품질 · 납기</p>
                 </div>
-                <div class="rounded-[1.4rem] border border-white/10 bg-white/[0.04] p-5">
-                  <p class="text-sm text-sand">페이지 성격</p>
-                  <p class="mt-2 text-lg font-bold text-white">공식 자료 반영 전 회사소개형 검토 초안</p>
+                <div class="rounded-[1.6rem] border border-white/12 bg-white/8 p-5">
+                  <p class="text-sm text-slate-300">운영 관점</p>
+                  <p class="mt-2 text-2xl font-bold text-white">현장 실행력</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="reveal rounded-[2rem] border border-white/12 bg-white/8 p-6 shadow-float" style="transition-delay: 90ms;">
+              <div class="rounded-[1.8rem] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.10),rgba(255,255,255,0.05))] p-6">
+                <p class="text-sm font-semibold text-orangeSoft">Partnership Positioning</p>
+                <h2 class="mt-3 break-kr text-3xl font-bold leading-snug text-white">
+                  대형 조선 프로젝트를 뒷받침하는
+                  현장형 협력사 메시지에 맞춰 정리했습니다
+                </h2>
+                <p class="mt-4 break-kr text-sm leading-relaxed text-slate-200">
+                  메인 메시지는 과장된 수식보다, 실제 현장에서 요구되는 대응 속도와
+                  안전·품질 관리 태도를 먼저 읽히게 하는 방향으로 설계했습니다.
+                </p>
+
+                <div class="mt-7 grid gap-4">
+                  <div class="rounded-[1.4rem] border border-white/10 bg-white/8 p-5">
+                    <p class="text-sm text-slate-300">현장 정체성</p>
+                    <p class="mt-2 text-lg font-bold text-white">선박의장 중심의 실무형 파트너</p>
+                  </div>
+                  <div class="rounded-[1.4rem] border border-white/10 bg-white/8 p-5">
+                    <p class="text-sm text-slate-300">대외 인상</p>
+                    <p class="mt-2 text-lg font-bold text-white">믿고 맡길 수 있는 실행 협업사</p>
+                  </div>
+                  <div class="rounded-[1.4rem] border border-white/10 bg-white/8 p-5">
+                    <p class="text-sm text-slate-300">페이지 성격</p>
+                    <p class="mt-2 text-lg font-bold text-white">회사형 소개 페이지 + 검토 자료 허브</p>
+                  </div>
                 </div>
               </div>
             </div>
@@ -222,151 +196,123 @@
       </div>
     </section>
 
-    <section class="px-4 py-24 sm:px-6 lg:px-8">
-      <div class="mx-auto max-w-7xl reveal">
-        <div class="grid gap-4 rounded-[2rem] border border-white/10 bg-white/[0.04] p-6 shadow-frame md:grid-cols-4">
-          <div class="rounded-[1.5rem] border border-white/10 bg-white/[0.04] p-5">
-            <p class="text-sm text-sand">운영 키워드</p>
-            <p class="mt-2 text-3xl font-bold text-white">3개</p>
-            <p class="mt-2 text-sm text-sand">안전활동 · 보고 · 코칭</p>
-          </div>
-          <div class="rounded-[1.5rem] border border-white/10 bg-white/[0.04] p-5">
-            <p class="text-sm text-sand">우선 리스크 축</p>
-            <p class="mt-2 text-3xl font-bold text-white">4개</p>
-            <p class="mt-2 text-sm text-sand">추락 · 협착 · 화기 · 통로</p>
-          </div>
-          <div class="rounded-[1.5rem] border border-white/10 bg-white/[0.04] p-5">
-            <p class="text-sm text-sand">공개된 시안</p>
-            <p class="mt-2 text-3xl font-bold text-white">2종</p>
-            <p class="mt-2 text-sm text-sand">1차 HTML 시안 · 2차 대시보드</p>
-          </div>
-          <div class="rounded-[1.5rem] border border-white/10 bg-white/[0.04] p-5">
-            <p class="text-sm text-sand">검토 방식</p>
-            <p class="mt-2 text-3xl font-bold text-white">웹 기반</p>
-            <p class="mt-2 text-sm text-sand">GitHub Pages로 바로 공유 가능</p>
-          </div>
+    <section class="px-4 py-10 sm:px-6 lg:px-8">
+      <div class="mx-auto grid max-w-7xl gap-4 md:grid-cols-4">
+        <div class="soft-panel reveal rounded-[1.8rem] p-6">
+          <p class="text-sm text-slate-500">협업 키워드</p>
+          <p class="mt-3 text-3xl font-bold text-deep">4축</p>
+          <p class="mt-2 text-sm text-slate-600">안전 · 품질 · 납기 · 소통</p>
+        </div>
+        <div class="soft-panel reveal rounded-[1.8rem] p-6" style="transition-delay: 60ms;">
+          <p class="text-sm text-slate-500">리스크 시야</p>
+          <p class="mt-3 text-3xl font-bold text-deep">현장 중심</p>
+          <p class="mt-2 text-sm text-slate-600">추락 · 협착 · 화기 · 통로</p>
+        </div>
+        <div class="soft-panel reveal rounded-[1.8rem] p-6" style="transition-delay: 120ms;">
+          <p class="text-sm text-slate-500">공개 자료</p>
+          <p class="mt-3 text-3xl font-bold text-deep">즉시 열람</p>
+          <p class="mt-2 text-sm text-slate-600">대시보드 · 시안 · 회의자료</p>
+        </div>
+        <div class="soft-panel reveal rounded-[1.8rem] p-6" style="transition-delay: 180ms;">
+          <p class="text-sm text-slate-500">페이지 방향</p>
+          <p class="mt-3 text-3xl font-bold text-deep">기업형</p>
+          <p class="mt-2 text-sm text-slate-600">협력사 신뢰 이미지를 강화</p>
         </div>
       </div>
     </section>
 
-    <section id="strength" class="px-4 py-24 sm:px-6 lg:px-8">
+    <section id="capability" class="px-4 py-24 sm:px-6 lg:px-8">
       <div class="mx-auto max-w-7xl">
         <div class="reveal break-kr">
-          <span class="inline-flex rounded-full border border-[rgba(200,154,70,0.24)] bg-[rgba(200,154,70,0.08)] px-4 py-2 text-[11px] font-bold uppercase tracking-[0.18em] text-ambersoft">Core Strength</span>
-          <h2 class="mt-6 max-w-4xl font-display text-3xl font-bold leading-tight tracking-tight text-white sm:text-5xl">
-            삼목기업 홈페이지에서 먼저 보여줄 만한 핵심 강점
+          <span class="inline-flex rounded-full border border-[#d5dfec] bg-white px-4 py-2 text-[11px] font-bold uppercase tracking-[0.18em] text-azure">Capability</span>
+          <h2 class="mt-6 max-w-4xl font-display text-3xl font-bold leading-tight tracking-tight text-deep sm:text-5xl">
+            삼목기업을 신뢰감 있게 보여주는 역량 구조
           </h2>
+          <p class="mt-5 max-w-3xl text-base leading-relaxed text-slate-600 sm:text-lg">
+            한화오션처럼 스케일을 강조하는 대기업형 표현을 그대로 쓰기보다,
+            삼목기업이 협력사로서 어떤 방식으로 프로젝트 품질과 현장 안정성을 뒷받침하는지에 초점을 맞췄습니다.
+          </p>
         </div>
 
-        <div class="mt-12 grid gap-6 lg:grid-cols-[1.15fr_0.85fr]">
-          <article class="double-bezel reveal">
-            <div class="grid gap-4 p-6 md:grid-cols-2 lg:grid-cols-3 lg:grid-rows-2">
-              <div class="rounded-[1.7rem] border border-white/10 bg-white/[0.04] p-6 lg:col-span-2">
-                <iconify-icon icon="solar:settings-linear" width="28" class="text-amber"></iconify-icon>
-                <h3 class="mt-6 break-kr text-2xl font-bold text-white">현장 중심의 의장 업무 흐름</h3>
-                <p class="mt-4 break-kr text-sm leading-relaxed text-sand">
-                  선박의장 생산과 설치, 품질관리 흐름을 기준으로 홈페이지 메시지를 구성해
-                  실제 업무 성격이 먼저 읽히도록 설계합니다.
-                </p>
-              </div>
-              <div class="rounded-[1.7rem] border border-white/10 bg-white/[0.04] p-6">
-                <iconify-icon icon="solar:shield-check-linear" width="26" class="text-amber"></iconify-icon>
-                <h3 class="mt-5 text-xl font-bold text-white">안전활동 강조</h3>
-                <p class="mt-3 break-kr text-sm leading-relaxed text-sand">안전이 별도 항목이 아니라 현장 운영의 기본 축으로 보이게 합니다.</p>
-              </div>
-              <div class="rounded-[1.7rem] border border-white/10 bg-white/[0.04] p-6">
-                <iconify-icon icon="solar:document-text-linear" width="26" class="text-amber"></iconify-icon>
-                <h3 class="mt-5 text-xl font-bold text-white">보고 체계 연결</h3>
-                <p class="mt-3 break-kr text-sm leading-relaxed text-sand">점검, 교육, 개선조치, 보고가 한 흐름으로 이어지도록 보여줍니다.</p>
-              </div>
-              <div class="rounded-[1.7rem] border border-white/10 bg-white/[0.04] p-6 lg:col-span-2">
-                <iconify-icon icon="solar:chart-2-linear" width="28" class="text-amber"></iconify-icon>
-                <h3 class="mt-6 break-kr text-2xl font-bold text-white">대시보드와 자료실이 연결되는 공개 구조</h3>
-                <p class="mt-4 break-kr text-sm leading-relaxed text-sand">
-                  회사 소개만 보여주는 페이지를 넘어서, 실제 운영 방향과 검토 자료가 함께 연결되는 구조로
-                  확장할 수 있습니다.
-                </p>
-              </div>
+        <div class="mt-12 grid gap-6 lg:grid-cols-3">
+          <article class="soft-panel reveal rounded-[2rem] p-8">
+            <div class="flex h-14 w-14 items-center justify-center rounded-2xl bg-deep text-white">
+              <iconify-icon icon="solar:settings-minimalistic-linear" width="28"></iconify-icon>
             </div>
+            <h3 class="mt-6 text-2xl font-bold text-deep">현장 맞춤 대응력</h3>
+            <p class="mt-4 break-kr text-sm leading-relaxed text-slate-600">
+              선박의장 작업 흐름을 이해한 상태에서 공정, 작업환경, 협업 동선에 맞는 대응이 가능하다는 인상을 주도록 구성했습니다.
+            </p>
           </article>
 
-          <article class="reveal grid gap-6" style="transition-delay: 80ms;">
-            <div class="rounded-[2rem] border border-white/10 bg-[linear-gradient(180deg,rgba(20,24,31,0.96),rgba(15,18,24,0.98))] p-7 shadow-plate">
-              <p class="text-sm font-semibold text-ambersoft">Public Draft Principle</p>
-              <h3 class="mt-3 break-kr text-3xl font-bold text-white">공식 확인 전에는 과장보다 정확성이 중요합니다</h3>
-              <p class="mt-4 break-kr text-base leading-relaxed text-sand">
-                대표자, 주소, 연락처 같은 항목은 공식 자료 확인 후 넣고, 지금은 홈페이지 초안의
-                구조와 톤, 핵심 메시지를 먼저 맞추는 방식이 더 안전합니다.
-              </p>
+          <article class="soft-panel reveal rounded-[2rem] p-8" style="transition-delay: 80ms;">
+            <div class="flex h-14 w-14 items-center justify-center rounded-2xl bg-orange text-white">
+              <iconify-icon icon="solar:shield-check-linear" width="28"></iconify-icon>
             </div>
-            <div class="rounded-[2rem] border border-white/10 bg-white/[0.04] p-7 shadow-plate">
-              <p class="text-sm font-semibold text-ambersoft">Open Message</p>
-              <h3 class="mt-3 break-kr text-2xl font-bold text-white">지금 바로 대외에 보여주기 좋은 문장</h3>
-              <p class="mt-4 break-kr text-sm leading-relaxed text-sand">
-                “삼목기업의 선박의장 현장 특성을 바탕으로 안전활동, 운영 흐름, 현장 리더 코칭 체계를 함께 검토하고 있습니다.”
-              </p>
+            <h3 class="mt-6 text-2xl font-bold text-deep">안전과 품질의 동시 관리</h3>
+            <p class="mt-4 break-kr text-sm leading-relaxed text-slate-600">
+              안전을 별도 문구로만 두지 않고, 품질·점검·개선조치와 한 흐름으로 보이게 하여 현장 운영 완성도를 강조합니다.
+            </p>
+          </article>
+
+          <article class="soft-panel reveal rounded-[2rem] p-8" style="transition-delay: 160ms;">
+            <div class="flex h-14 w-14 items-center justify-center rounded-2xl bg-steel text-white">
+              <iconify-icon icon="solar:users-group-rounded-linear" width="28"></iconify-icon>
             </div>
+            <h3 class="mt-6 text-2xl font-bold text-deep">프로젝트 협업 신뢰</h3>
+            <p class="mt-4 break-kr text-sm leading-relaxed text-slate-600">
+              발주처·원청·현장 리더와 소통이 자연스럽게 연결되는 협업사 이미지를 만들어, 소개 페이지가 곧 신뢰 자료가 되도록 했습니다.
+            </p>
           </article>
         </div>
       </div>
     </section>
 
-    <section id="operation" class="px-4 py-24 sm:px-6 lg:px-8">
+    <section id="system" class="px-4 py-24 sm:px-6 lg:px-8">
       <div class="mx-auto max-w-7xl">
-        <div class="reveal grid gap-6 lg:grid-cols-[0.94fr_1.06fr] lg:items-center">
-          <div class="break-kr">
-            <span class="inline-flex rounded-full border border-[rgba(200,154,70,0.24)] bg-[rgba(200,154,70,0.08)] px-4 py-2 text-[11px] font-bold uppercase tracking-[0.18em] text-ambersoft">Operation Direction</span>
-            <h2 class="mt-6 text-3xl font-bold leading-tight tracking-tight text-white sm:text-5xl">
-              홈페이지에서도 읽히는 운영 방향은 명확해야 합니다
+        <div class="grid gap-6 lg:grid-cols-[0.92fr_1.08fr] lg:items-start">
+          <div class="reveal break-kr">
+            <span class="inline-flex rounded-full border border-[#d5dfec] bg-white px-4 py-2 text-[11px] font-bold uppercase tracking-[0.18em] text-azure">Operation System</span>
+            <h2 class="mt-6 text-3xl font-bold leading-tight tracking-tight text-deep sm:text-5xl">
+              현장 운영체계는 짧아도 분명해야 합니다
             </h2>
-            <p class="mt-5 max-w-2xl text-base leading-relaxed text-sand sm:text-lg">
-              삼목기업의 공개 페이지는 단순 회사 소개를 넘어서, 현장 운영을 어떤 관점으로 보고 있는지
-              짧고 분명하게 전달할 수 있어야 합니다.
+            <p class="mt-5 text-base leading-relaxed text-slate-600 sm:text-lg">
+              협력사 홈페이지에서 중요한 것은 복잡한 설명보다, 현장에서 무엇을 우선하고
+              어떤 방식으로 관리하는지가 명확하게 전달되는 것입니다.
             </p>
-          </div>
 
-          <div class="double-bezel reveal" style="transition-delay: 100ms;">
-            <div class="p-6 lg:p-7">
-              <div class="grid gap-4">
-                <div class="lift rounded-[1.5rem] border border-white/10 bg-white/[0.04] p-5">
-                  <p class="text-sm text-sand">01 안전활동</p>
-                  <p class="mt-2 text-lg font-bold text-white">고소작업, 협착, 화기작업, 통로관리 같은 핵심 리스크를 먼저 관리합니다.</p>
-                </div>
-                <div class="lift rounded-[1.5rem] border border-white/10 bg-white/[0.04] p-5">
-                  <p class="text-sm text-sand">02 보고체계</p>
-                  <p class="mt-2 text-lg font-bold text-white">점검과 교육, 개선조치가 보고에서 분리되지 않도록 정리합니다.</p>
-                </div>
-                <div class="lift rounded-[1.5rem] border border-white/10 bg-white/[0.04] p-5">
-                  <p class="text-sm text-sand">03 코칭</p>
-                  <p class="mt-2 text-lg font-bold text-white">현장 반장과 관리자에게 바로 적용할 수 있는 실행 언어로 연결합니다.</p>
-                </div>
-              </div>
+            <div class="mt-8 rounded-[2rem] bg-[linear-gradient(135deg,#0b1930,#173153)] p-8 text-white shadow-panel">
+              <p class="text-sm font-semibold text-orangeSoft">Suggested Core Message</p>
+              <p class="mt-4 break-kr text-xl font-bold leading-relaxed">
+                “삼목기업은 조선·해양 현장의 작업 안전, 품질 기준, 협업 실행력을 함께 관리하는
+                실무형 협력 파트너를 지향합니다.”
+              </p>
             </div>
           </div>
-        </div>
 
-        <div class="mt-12 grid gap-6 md:grid-cols-3">
-          <article class="reveal rounded-[2rem] border border-white/10 bg-white/[0.04] p-7 shadow-plate">
-            <p class="text-sm font-semibold text-ambersoft">Case 01</p>
-            <h3 class="mt-3 text-2xl font-bold text-white">현장 리더 관점</h3>
-            <p class="mt-4 break-kr text-sm leading-relaxed text-sand">
-              오늘 바로 챙겨야 할 위험요인과 코칭 포인트가 빠르게 보이는 화면이 필요합니다.
-            </p>
-          </article>
-          <article class="reveal rounded-[2rem] border border-white/10 bg-white/[0.04] p-7 shadow-plate" style="transition-delay: 70ms;">
-            <p class="text-sm font-semibold text-ambersoft">Case 02</p>
-            <h3 class="mt-3 text-2xl font-bold text-white">관리자 관점</h3>
-            <p class="mt-4 break-kr text-sm leading-relaxed text-sand">
-              반복 지적과 지연 개선조치를 한 번에 보고, 어느 팀부터 점검할지 정할 수 있어야 합니다.
-            </p>
-          </article>
-          <article class="reveal rounded-[2rem] border border-white/10 bg-white/[0.04] p-7 shadow-plate" style="transition-delay: 140ms;">
-            <p class="text-sm font-semibold text-ambersoft">Case 03</p>
-            <h3 class="mt-3 text-2xl font-bold text-white">경영진 관점</h3>
-            <p class="mt-4 break-kr text-sm leading-relaxed text-sand">
-              현장 안전활동 수준과 운영 개선 방향이 한눈에 읽히는 정리 방식이 중요합니다.
-            </p>
-          </article>
+          <div class="grid gap-5">
+            <article class="soft-panel reveal rounded-[2rem] p-7" style="transition-delay: 60ms;">
+              <p class="text-sm font-semibold text-azure">01 Safety First</p>
+              <h3 class="mt-3 text-2xl font-bold text-deep">핵심 위험요인을 먼저 보는 안전활동</h3>
+              <p class="mt-4 break-kr text-sm leading-relaxed text-slate-600">
+                고소작업, 협착, 화기작업, 통로관리 같은 반복 리스크를 우선적으로 관리하는 메시지로 현장형 신뢰를 강화합니다.
+              </p>
+            </article>
+            <article class="soft-panel reveal rounded-[2rem] p-7" style="transition-delay: 120ms;">
+              <p class="text-sm font-semibold text-azure">02 Quality & Reporting</p>
+              <h3 class="mt-3 text-2xl font-bold text-deep">품질과 보고가 분리되지 않는 운영 흐름</h3>
+              <p class="mt-4 break-kr text-sm leading-relaxed text-slate-600">
+                점검 결과, 개선조치, 교육, 보고를 하나의 흐름으로 묶어두면 협업사의 관리 수준이 더 분명하게 읽힙니다.
+              </p>
+            </article>
+            <article class="soft-panel reveal rounded-[2rem] p-7" style="transition-delay: 180ms;">
+              <p class="text-sm font-semibold text-azure">03 Execution</p>
+              <h3 class="mt-3 text-2xl font-bold text-deep">현장 리더가 바로 이해할 수 있는 실행 언어</h3>
+              <p class="mt-4 break-kr text-sm leading-relaxed text-slate-600">
+                문장을 멋있게 꾸미기보다, 반장·관리자·협업 파트너가 바로 이해할 수 있는 표현을 중심에 두었습니다.
+              </p>
+            </article>
+          </div>
         </div>
       </div>
     </section>
@@ -374,54 +320,56 @@
     <section id="archive" class="px-4 py-24 sm:px-6 lg:px-8">
       <div class="mx-auto max-w-7xl">
         <div class="reveal break-kr">
-          <span class="inline-flex rounded-full border border-[rgba(200,154,70,0.24)] bg-[rgba(200,154,70,0.08)] px-4 py-2 text-[11px] font-bold uppercase tracking-[0.18em] text-ambersoft">Archive</span>
-          <h2 class="mt-6 max-w-4xl font-display text-3xl font-bold leading-tight tracking-tight text-white sm:text-5xl">
-            함께 볼 수 있는 자료와 대시보드
+          <span class="inline-flex rounded-full border border-[#d5dfec] bg-white px-4 py-2 text-[11px] font-bold uppercase tracking-[0.18em] text-azure">Archive</span>
+          <h2 class="mt-6 max-w-4xl font-display text-3xl font-bold leading-tight tracking-tight text-deep sm:text-5xl">
+            함께 제시할 수 있는 자료 허브
           </h2>
         </div>
 
-        <div class="mt-12 grid gap-6 lg:grid-cols-[1.05fr_0.95fr]">
-          <article class="double-bezel reveal">
-            <div class="p-7 lg:p-8">
-              <p class="text-sm font-semibold text-ambersoft">Open Materials</p>
-              <h3 class="mt-3 break-kr text-3xl font-bold text-white">GitHub Pages 기반으로 자료를 바로 열 수 있습니다</h3>
-              <div class="mt-8 grid gap-4">
-                <a href="../docs/SAMMOK_ship_outfitting_safety_dashboard.html" class="cta-btn flex items-center justify-between gap-4 rounded-[1.5rem] border border-white/10 bg-white/[0.04] p-5">
-                  <div>
-                    <p class="text-sm text-sand">Dashboard</p>
-                    <p class="mt-2 break-kr text-lg font-bold text-white">선박의장 안전활동지수 대시보드</p>
-                  </div>
-                  <iconify-icon icon="solar:monitor-linear" width="24" class="text-amber"></iconify-icon>
-                </a>
-                <a href="../docs/1st-consulting/index1.html" class="cta-btn flex items-center justify-between gap-4 rounded-[1.5rem] border border-white/10 bg-white/[0.04] p-5">
-                  <div>
-                    <p class="text-sm text-sand">HTML Draft</p>
-                    <p class="mt-2 break-kr text-lg font-bold text-white">1차 컨설팅 시안 2</p>
-                  </div>
-                  <iconify-icon icon="solar:folder-favourite-bookmark-linear" width="24" class="text-amber"></iconify-icon>
-                </a>
-                <a href="../proposal/삼목기업_AI훈련로드맵_2차컨설팅_구성요약.md" class="cta-btn flex items-center justify-between gap-4 rounded-[1.5rem] border border-white/10 bg-white/[0.04] p-5">
-                  <div>
-                    <p class="text-sm text-sand">Proposal</p>
-                    <p class="mt-2 break-kr text-lg font-bold text-white">2차 컨설팅 구성요약 문서</p>
-                  </div>
-                  <iconify-icon icon="solar:document-text-linear" width="24" class="text-amber"></iconify-icon>
-                </a>
-              </div>
+        <div class="mt-12 grid gap-6 lg:grid-cols-[1.02fr_0.98fr]">
+          <article class="soft-panel reveal rounded-[2rem] p-8">
+            <p class="text-sm font-semibold text-azure">Open Resources</p>
+            <h3 class="mt-3 break-kr text-3xl font-bold text-deep">설명과 자료가 바로 이어지는 구조로 연결했습니다</h3>
+            <div class="mt-8 grid gap-4">
+              <a href="https://kclock-boop.github.io/sammok/docs/SAMMOK_ship_outfitting_safety_dashboard.html" class="lift flex items-center justify-between gap-4 rounded-[1.5rem] border border-slate-200 bg-white p-5">
+                <div>
+                  <p class="text-sm text-slate-500">Dashboard</p>
+                  <p class="mt-2 text-lg font-bold text-deep">선박의장 안전활동지수 대시보드</p>
+                </div>
+                <iconify-icon icon="solar:monitor-smartphone-linear" width="24" class="text-orange"></iconify-icon>
+              </a>
+              <a href="https://kclock-boop.github.io/sammok/docs/1st-consulting/index.html" class="lift flex items-center justify-between gap-4 rounded-[1.5rem] border border-slate-200 bg-white p-5">
+                <div>
+                  <p class="text-sm text-slate-500">HTML Draft</p>
+                  <p class="mt-2 text-lg font-bold text-deep">1차 컨설팅 HTML 시안</p>
+                </div>
+                <iconify-icon icon="solar:document-linear" width="24" class="text-orange"></iconify-icon>
+              </a>
+              <a href="https://github.com/kclock-boop/sammok/blob/main/proposal/%EC%82%BC%EB%AA%A9%EA%B8%B0%EC%97%85_AI%ED%9B%88%EB%A0%A8%EB%A1%9C%EB%93%9C%EB%A7%B5_2%EC%B0%A8%EC%BB%A8%EC%84%A4%ED%8C%85_%EA%B5%AC%EC%84%B1%EC%9A%94%EC%95%BD.md" class="lift flex items-center justify-between gap-4 rounded-[1.5rem] border border-slate-200 bg-white p-5">
+                <div>
+                  <p class="text-sm text-slate-500">Proposal</p>
+                  <p class="mt-2 text-lg font-bold text-deep">2차 컨설팅 구성요약</p>
+                </div>
+                <iconify-icon icon="solar:folder-open-linear" width="24" class="text-orange"></iconify-icon>
+              </a>
             </div>
           </article>
 
-          <article class="reveal rounded-[2rem] border border-white/10 bg-[linear-gradient(135deg,rgba(200,154,70,0.14),rgba(20,24,31,0.96))] p-8 shadow-frame lg:p-10" style="transition-delay: 80ms;">
-            <p class="text-sm font-semibold text-white/90">Homepage Expansion</p>
-            <h3 class="mt-3 break-kr text-3xl font-bold text-white">다음 단계에서는 공식 회사소개 자료를 받아 더 정교하게 키울 수 있습니다</h3>
+          <article class="reveal overflow-hidden rounded-[2rem] bg-[linear-gradient(135deg,#fff4eb_0%,#ffffff_46%,#edf4fb_100%)] p-8 shadow-panel" style="transition-delay: 90ms;">
+            <p class="text-sm font-semibold text-azure">Next Expansion</p>
+            <h3 class="mt-3 break-kr text-3xl font-bold text-deep">공식 회사 자료가 오면 더 완성도 높게 키울 수 있습니다</h3>
             <div class="mt-7 grid gap-4">
-              <div class="rounded-[1.4rem] border border-white/10 bg-white/10 p-5">
-                <p class="text-sm text-sand">추가 가능 항목</p>
-                <p class="mt-2 text-lg font-bold text-white">회사 연혁 · 사업영역 · 주요 설비 · 문의 정보</p>
+              <div class="rounded-[1.4rem] border border-white bg-white/80 p-5">
+                <p class="text-sm text-slate-500">추가 추천 항목</p>
+                <p class="mt-2 text-lg font-bold text-deep">회사 연혁 · 사업영역 · 주요 실적 · 문의 정보</p>
               </div>
-              <div class="rounded-[1.4rem] border border-white/10 bg-white/10 p-5">
-                <p class="text-sm text-sand">권장 방식</p>
-                <p class="mt-2 text-lg font-bold text-white">현재 초안 유지 후 공식 자료 기준으로 문구와 숫자 교체</p>
+              <div class="rounded-[1.4rem] border border-white bg-white/80 p-5">
+                <p class="text-sm text-slate-500">권장 보완 방식</p>
+                <p class="mt-2 text-lg font-bold text-deep">현재 구조 유지 후 공식 문구와 수치만 정확히 교체</p>
+              </div>
+              <div class="rounded-[1.4rem] border border-white bg-white/80 p-5">
+                <p class="text-sm text-slate-500">대외 활용</p>
+                <p class="mt-2 text-lg font-bold text-deep">미팅 소개, 협업 제안, 자료 공유 링크로 활용</p>
               </div>
             </div>
           </article>
@@ -429,47 +377,48 @@
       </div>
     </section>
 
-    <section id="contact" class="px-4 py-24 sm:px-6 lg:px-8">
+    <section id="contact" class="px-4 pb-24 pt-10 sm:px-6 lg:px-8">
       <div class="mx-auto max-w-7xl">
-        <div class="reveal rounded-[2.2rem] border border-[rgba(200,154,70,0.24)] bg-[linear-gradient(135deg,rgba(200,154,70,0.12),rgba(15,18,24,0.98))] p-8 shadow-frame lg:p-10">
-          <div class="grid gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:items-end">
+        <div class="reveal overflow-hidden rounded-[2.2rem] bg-[linear-gradient(135deg,#0a1629,#112848,#18365b)] p-8 text-white shadow-panel lg:p-10">
+          <div class="grid gap-8 lg:grid-cols-[1.02fr_0.98fr] lg:items-end">
             <div class="break-kr">
-              <span class="inline-flex rounded-full border border-white/10 bg-white/10 px-4 py-2 text-[11px] font-bold uppercase tracking-[0.18em] text-white">Contact & Update</span>
-              <h2 class="mt-6 text-3xl font-bold leading-tight tracking-tight text-white sm:text-5xl">
-                공식 소개 정보가 정리되면 이 페이지는 바로 회사형 홈페이지로 확장할 수 있습니다
+              <span class="inline-flex rounded-full border border-white/15 bg-white/10 px-4 py-2 text-[11px] font-bold uppercase tracking-[0.18em] text-white">Contact & Link</span>
+              <h2 class="mt-6 text-3xl font-bold leading-tight tracking-tight sm:text-5xl">
+                지금 단계에서도 충분히
+                소개형 홈페이지로 사용할 수 있습니다
               </h2>
-              <p class="mt-5 max-w-2xl text-base leading-relaxed text-sand sm:text-lg">
-                현재 버전은 공개 검토용 초안입니다. 공식 회사소개 자료, 연락처, 연혁, 사업영역 정보가 준비되면
-                같은 구조 안에서 대외용 홈페이지로 정리할 수 있습니다.
+              <p class="mt-5 max-w-2xl text-base leading-relaxed text-slate-200 sm:text-lg">
+                현재 페이지는 공식 정보 확정 전 검토용 초안이지만, 기업 소개 첫인상과 자료 연결 구조는
+                이미 갖추고 있어 미팅·설명·내부 검토용으로 바로 활용 가능합니다.
               </p>
               <div class="mt-8 flex flex-col gap-4 sm:flex-row">
-                <a href="https://github.com/kclock-boop/sammok" class="cta-btn inline-flex min-h-12 items-center justify-center gap-3 rounded-full bg-white px-8 py-4 text-base font-bold text-[#10151d]">
+                <a href="https://github.com/kclock-boop/sammok" class="cta-btn inline-flex min-h-12 items-center justify-center gap-3 rounded-full bg-white px-8 py-4 text-base font-bold text-deep">
                   GitHub 저장소 보기
-                  <span class="flex h-9 w-9 items-center justify-center rounded-full bg-[#10151d] text-white">
+                  <span class="flex h-9 w-9 items-center justify-center rounded-full bg-deep text-white">
                     <iconify-icon icon="solar:link-round-angle-linear" width="18"></iconify-icon>
                   </span>
                 </a>
-                <a href="../proposal/삼목기업_AI훈련로드맵_2차컨설팅_회의록_반완성본.md" class="cta-btn inline-flex min-h-12 items-center justify-center gap-3 rounded-full border border-white/14 bg-white/8 px-8 py-4 text-base font-bold text-white">
-                  회의 메모 보기
+                <a href="https://kclock-boop.github.io/sammok/" class="cta-btn inline-flex min-h-12 items-center justify-center gap-3 rounded-full border border-white/16 bg-white/8 px-8 py-4 text-base font-bold text-white">
+                  GitHub Pages 바로 열기
                   <span class="flex h-9 w-9 items-center justify-center rounded-full bg-white/10 text-white">
-                    <iconify-icon icon="solar:notes-linear" width="18"></iconify-icon>
+                    <iconify-icon icon="solar:global-linear" width="18"></iconify-icon>
                   </span>
                 </a>
               </div>
             </div>
 
             <div class="grid gap-4">
-              <div class="rounded-[1.5rem] border border-white/10 bg-white/10 p-5">
-                <p class="text-sm text-sand">현재 상태</p>
-                <p class="mt-2 text-lg font-bold text-white">대외 공개용 홈페이지 초안</p>
+              <div class="rounded-[1.5rem] border border-white/12 bg-white/10 p-5">
+                <p class="text-sm text-slate-300">현재 포지셔닝</p>
+                <p class="mt-2 text-lg font-bold text-white">조선·해양 협력사 소개형 홈페이지</p>
               </div>
-              <div class="rounded-[1.5rem] border border-white/10 bg-white/10 p-5">
-                <p class="text-sm text-sand">보완 우선순위</p>
-                <p class="mt-2 text-lg font-bold text-white">공식 회사정보 · 사업설명 · 문의 정보 반영</p>
+              <div class="rounded-[1.5rem] border border-white/12 bg-white/10 p-5">
+                <p class="text-sm text-slate-300">보완 우선순위</p>
+                <p class="mt-2 text-lg font-bold text-white">공식 회사정보, 사업 설명, 사진 자료 반영</p>
               </div>
-              <div class="rounded-[1.5rem] border border-white/10 bg-white/10 p-5">
-                <p class="text-sm text-sand">활용 방식</p>
-                <p class="mt-2 text-lg font-bold text-white">미팅 공유 · 검토 링크 · 후속 홈페이지 기반</p>
+              <div class="rounded-[1.5rem] border border-white/12 bg-white/10 p-5">
+                <p class="text-sm text-slate-300">추천 다음 단계</p>
+                <p class="mt-2 text-lg font-bold text-white">실제 회사 로고·현장 사진·문의처 적용</p>
               </div>
             </div>
           </div>
@@ -479,33 +428,33 @@
   </main>
 
   <footer class="px-4 pb-10 sm:px-6 lg:px-8">
-    <div class="mx-auto flex max-w-7xl flex-col gap-5 border-t border-white/10 pt-6 text-sm text-sand md:flex-row md:items-center md:justify-between">
+    <div class="mx-auto flex max-w-7xl flex-col gap-5 border-t border-slate-200 pt-6 text-sm text-slate-500 md:flex-row md:items-center md:justify-between">
       <div>
-        <p class="font-semibold text-white">삼목기업 홈페이지 초안</p>
-        <p class="mt-1 break-kr">선박의장 현장 운영 · 안전활동 · 공개 검토용 소개 페이지</p>
+        <p class="font-semibold text-deep">삼목기업 기업소개 홈페이지 초안</p>
+        <p class="mt-1 break-kr">조선·해양 현장 협업 신뢰, 안전·품질 운영 방향, 공개 자료 연결 구조를 담은 버전</p>
       </div>
       <div class="flex flex-wrap gap-4">
-        <a class="nav-link hover:text-white" href="#about">회사 소개</a>
-        <a class="nav-link hover:text-white" href="#strength">핵심 강점</a>
-        <a class="nav-link hover:text-white" href="#operation">운영 방향</a>
-        <a class="nav-link hover:text-white" href="#archive">자료 보기</a>
-        <a class="nav-link hover:text-white" href="#contact">문의</a>
+        <a class="nav-link hover:text-deep" href="#intro">회사 소개</a>
+        <a class="nav-link hover:text-deep" href="#capability">역량</a>
+        <a class="nav-link hover:text-deep" href="#system">운영체계</a>
+        <a class="nav-link hover:text-deep" href="#archive">자료실</a>
+        <a class="nav-link hover:text-deep" href="#contact">연결</a>
       </div>
     </div>
   </footer>
 
   <script>
     const revealItems = document.querySelectorAll(".reveal");
-    const revealObserver = new IntersectionObserver((entries) => {
+    const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           entry.target.classList.add("is-visible");
-          revealObserver.unobserve(entry.target);
+          observer.unobserve(entry.target);
         }
       });
     }, { threshold: 0.12 });
 
-    revealItems.forEach((item) => revealObserver.observe(item));
+    revealItems.forEach((item) => observer.observe(item));
   </script>
 </body>
 </html>
