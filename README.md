@@ -12,7 +12,11 @@
 ## 바로가기
 
 - 컨설팅 허브 페이지: [site/index.html](./site/index.html)
-- GitHub Pages 공개 주소 예정: `https://kclock-boop.github.io/sammok/site/index.html`
+- GitHub Pages 메인: [https://kclock-boop.github.io/sammok/](https://kclock-boop.github.io/sammok/)
+- 허브페이지 직접열기: [https://kclock-boop.github.io/sammok/site/index.html](https://kclock-boop.github.io/sammok/site/index.html)
+- 1차 컨설팅 HTML 시안 1 직접열기: [https://kclock-boop.github.io/sammok/docs/1st-consulting/index.html](https://kclock-boop.github.io/sammok/docs/1st-consulting/index.html)
+- 1차 컨설팅 HTML 시안 2 직접열기: [https://kclock-boop.github.io/sammok/docs/1st-consulting/index1.html](https://kclock-boop.github.io/sammok/docs/1st-consulting/index1.html)
+- 2차 대시보드 직접열기: [https://kclock-boop.github.io/sammok/docs/SAMMOK_ship_outfitting_safety_dashboard.html](https://kclock-boop.github.io/sammok/docs/SAMMOK_ship_outfitting_safety_dashboard.html)
 - 선박의장 안전활동지수 Dashboard: [docs/SAMMOK_ship_outfitting_safety_dashboard.html](./docs/SAMMOK_ship_outfitting_safety_dashboard.html)
 - 1차 컨설팅 HTML 시안 1: [docs/1st-consulting/index.html](./docs/1st-consulting/index.html)
 - 1차 컨설팅 HTML 시안 2: [docs/1st-consulting/index1.html](./docs/1st-consulting/index1.html)
