@@ -90,6 +90,8 @@
     .chip{font-size:12px;padding:7px 10px;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,.04);color:var(--muted)}
     .chip strong{color:var(--text)}
     .trend-svg,.bar-svg{width:100%;height:320px;display:block;background:linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.01));border-radius:14px;border:1px solid rgba(255,255,255,.04)}
+    .chart-scroll{overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;border-radius:14px}
+    .chart-scroll svg{min-width:700px}
     .risk-list,.action-list,.issue-list{display:flex;flex-direction:column;gap:12px}
     .risk-item,.action-item,.issue-item{padding:14px;border-radius:14px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06)}
     .risk-head,.issue-head{display:flex;justify-content:space-between;gap:10px;margin-bottom:8px;align-items:center}
@@ -121,6 +123,8 @@
     .ring span{font-size:15px}
     .mini-donut .label{font-size:13px;color:var(--muted)}
     table{width:100%;border-collapse:collapse;overflow:hidden;border-radius:14px}
+    .table-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;border-radius:14px}
+    .table-scroll table{min-width:760px}
     th, td{padding:12px 10px;text-align:left;border-bottom:1px solid rgba(255,255,255,.06);font-size:13px}
     th{color:var(--muted);font-weight:600;background:rgba(255,255,255,.03)}
     tr:last-child td{border-bottom:none}
@@ -135,10 +139,34 @@
     }
     @media (max-width: 640px){
       .wrap{padding:16px}
+      .topbar{align-items:flex-start}
+      .badge-group{width:100%}
+      .badge{font-size:12px;padding:8px 12px}
+      .card{padding:14px}
       .kpi-grid{grid-template-columns:1fr}
       .donut-grid{grid-template-columns:1fr}
       .title h1{font-size:22px}
+      .title p{font-size:13px}
       .gauge{width:210px}
+      .gauge-wrap{min-height:250px}
+      .gauge-center .score{font-size:42px}
+      .gauge-center .label{font-size:13px}
+      .kpi{min-height:auto}
+      .kpi .value{font-size:28px}
+      .delta{font-size:12px;padding:5px 8px}
+      .card-title{align-items:flex-start;flex-direction:column}
+      .trend-svg,.bar-svg{height:260px}
+      .chart-scroll svg{min-width:640px}
+      .risk-head,.issue-head{flex-direction:column;align-items:flex-start}
+      th, td{padding:10px 8px;font-size:12px}
+      .footer-note{text-align:left;line-height:1.6}
+    }
+    @media (max-width: 420px){
+      .wrap{padding:14px}
+      .title h1{font-size:20px}
+      .gauge{width:190px}
+      .trend-svg,.bar-svg{height:240px}
+      .chart-scroll svg{min-width:600px}
     }
   </style>
 </head>
@@ -213,7 +241,8 @@
           <h3>월간 안전활동지수 추이</h3>
           <span class="sub">최근 6개월</span>
         </div>
-        <svg class="trend-svg" viewBox="0 0 700 320" preserveAspectRatio="none">
+        <div class="chart-scroll">
+        <svg class="trend-svg" viewBox="0 0 700 320" preserveAspectRatio="xMidYMid meet">
           <defs>
             <linearGradient id="lineFill" x1="0" y1="0" x2="0" y2="1">
               <stop offset="0%" stop-color="rgba(77,163,255,0.35)"/>
@@ -260,6 +289,7 @@
             <text x="588" y="111">92</text>
           </g>
         </svg>
+        </div>
       </div>
 
       <div class="card">
@@ -310,7 +340,8 @@
           <h3>팀별 안전활동지수</h3>
           <span class="sub">8월 기준</span>
         </div>
-        <svg class="bar-svg" viewBox="0 0 700 320" preserveAspectRatio="none">
+        <div class="chart-scroll">
+        <svg class="bar-svg" viewBox="0 0 700 320" preserveAspectRatio="xMidYMid meet">
           <g stroke="rgba(255,255,255,.08)" stroke-width="1">
             <line x1="60" y1="30" x2="60" y2="280"/>
             <line x1="60" y1="280" x2="660" y2="280"/>
@@ -348,6 +379,7 @@
             <text x="579" y="300">협력사</text>
           </g>
         </svg>
+        </div>
       </div>
 
       <div class="card">
@@ -420,6 +452,7 @@
         <h3>최근 이슈 및 조치현황</h3>
         <span class="sub">운영 메모</span>
       </div>
+      <div class="table-scroll">
       <table>
         <thead>
           <tr>
@@ -466,6 +499,7 @@
           </tr>
         </tbody>
       </table>
+      </div>
     </section>
 
     <div class="footer-note">
