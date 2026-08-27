@@ -83,6 +83,24 @@
 - 회의 후 Action Item과 후속 구축 범위 정리
 - GitHub 저장소를 기반으로 Pages 또는 링크 공유 확장
 
+## 공유용 문구
+
+### 1) 담당자에게 보내는 기본 문구
+
+안녕하세요. 검토용 링크 전달드립니다.  
+삼목기업 소개 페이지: https://kclock-boop.github.io/sammok/  
+안전활동지수 대시보드: https://kclock-boop.github.io/sammok/docs/SAMMOK_ship_outfitting_safety_dashboard.html
+
+### 2) 짧은 1줄 문구
+
+삼목기업 검토용 링크 전달드립니다. 소개 페이지: https://kclock-boop.github.io/sammok/ / 대시보드: https://kclock-boop.github.io/sammok/docs/SAMMOK_ship_outfitting_safety_dashboard.html
+
+### 3) 조금 더 부드러운 문구
+
+안녕하세요. 2026년 8월 28일(금) 컨설팅 검토용 링크 먼저 공유드립니다.  
+- 소개 페이지: https://kclock-boop.github.io/sammok/  
+- 대시보드: https://kclock-boop.github.io/sammok/docs/SAMMOK_ship_outfitting_safety_dashboard.html
+
 ## 비고
 
 - 본 저장소의 일부 수치와 Dashboard 데이터는 현장 논의를 위한 예시값입니다.
