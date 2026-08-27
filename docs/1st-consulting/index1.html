@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>선박의장 안전활동지수 통합 대시보드</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Pretendard:wght@400;500;600;700&display=swap');
+    body {
+      font-family: 'Pretendard', sans-serif;
+    }
+  </style>
+</head>
+<body class="bg-slate-900 text-slate-100 min-h-screen">
+
+  <!-- 상단 네비게이션 헤더 -->
+  <header class="bg-slate-800 border-b border-slate-700 sticky top-0 z-30 px-6 py-4 flex flex-wrap justify-between items-center gap-4">
+    <div class="flex items-center gap-3">
+      <div class="p-2 bg-blue-600 rounded-lg text-white">
+        <i data-lucide="shield-alert" class="w-6 h-6"></i>
+      </div>
+      <div>
+        <h1 class="text-xl font-bold text-white tracking-wide">선박의장 안전활동지수(Safety Activity Index) 관제 시스템</h1>
+        <p class="text-xs text-slate-400">조선해양 의장공정 스마트 안전관리 모니터링</p>
+      </div>
+    </div>
+    
+    <div class="flex items-center gap-3">
+      <div class="text-right hidden sm:block">
+        <span class="text-xs text-slate-400">실시간 데이터 동기화</span>
+        <div id="liveClock" class="text-sm font-semibold text-slate-200"></div>
+      </div>
+      <button onclick="openModal()" class="flex items-center gap-2 bg-blue-600 hover:bg-blue-500 text-white px-4 py-2 rounded-lg font-medium shadow-md transition">
+        <i data-lucide="plus-circle" class="w-4 h-4"></i>
+        <span>점검결과 등록</span>
+      </button>
+      <button onclick="resetData()" class="flex items-center gap-1.5 bg-slate-700 hover:bg-slate-600 text-slate-300 px-3 py-2 rounded-lg text-sm transition" title="초기 데이터로 리셋">
+        <i data-lucide="rotate-ccw" class="w-4 h-4"></i>
+      </button>
+    </div>
+  </header>
+
+  <!-- 메인 컨테이너 -->
+  <main class="max-w-7xl mx-auto p-6 space-y-6">
+
+    <!-- 1. 상단 KPI 카드 영역 -->
+    <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+      <!-- KPI 1 -->
+      <div class="bg-slate-800 border border-slate-700 rounded-xl p-4 flex flex-col justify-between shadow-sm">
+        <div class="flex justify-between items-start">
+          <span class="text-xs font-semibold text-slate-400">종합 안전활동지수</span>
+          <span id="gradeBadge" class="text-xs px-2 py-0.5 rounded font-bold bg-emerald-500/20 text-emerald-400">우수</span>
+        </div>
+        <div class="mt-3 flex items-baseline gap-2">
+          <span id="kpiSafetyScore" class="text-3xl font-extrabold text-white">96.2</span>
+          <span class="text-xs text-slate-400">/ 100점 (목표: 95)</span>
+        </div>
+        <div class="mt-2 w-full bg-slate-700 h-1.5 rounded-full overflow-hidden">
+          <div id="kpiScoreBar" class="bg-blue-500 h-full rounded-full" style="width: 96.2%;"></div>
+        </div>
+      </div>
+
+      <!-- KPI 2 -->
+      <div class="bg-slate-800 border border-slate-700 rounded-xl p-4 flex flex-col justify-between shadow-sm">
+        <div class="flex justify-between items-start">
+          <span class="text-xs font-semibold text-slate-400">TBM 실시율</span>
+          <i data-lucide="users" class="w-4 h-4 text-blue-400"></i>
+        </div>
+        <div class="mt-3 flex items-baseline gap-2">
+          <span id="kpiTbmRate" class="text-3xl font-extrabold text-white">98.5</span>
+          <span class="text-xs text-emerald-400 font-semibold">▲ 1.2%</span>
+        </div>
+        <span class="text-xs text-slate-400 mt-2">금일 42개 작업반 전수 실시</span>
+      </div>
+
+      <!-- KPI 3 -->
+      <div class="bg-slate-800 border border-slate-700 rounded-xl p-4 flex flex-col justify-between shadow-sm">
+        <div class="flex justify-between items-start">
+          <span class="text-xs font-semibold text-slate-400">4대 고위험 작업허가율</span>
+          <i data-lucide="flame" class="w-4 h-4 text-amber-400"></i>
+        </div>
+        <div class="mt-3 flex items-baseline gap-2">
+          <span id="kpiPermitRate" class="text-3xl font-extrabold text-white">100</span>
+          <span class="text-xs text-slate-400">% (28건 승인)</span>
+        </div>
+        <span class="text-xs text-slate-400 mt-2">화기·밀폐·고소·양중 허가필</span>
+      </div>
+
+      <!-- KPI 4 -->
+      <div class="bg-slate-800 border border-slate-700 rounded-xl p-4 flex flex-col justify-between shadow-sm">
+        <div class="flex justify-between items-start">
+          <span class="text-xs font-semibold text-slate-400">아차사고 조치율</span>
+          <i data-lucide="check-circle" class="w-4 h-4 text-emerald-400"></i>
+        </div>
+        <div class="mt-3 flex items-baseline gap-2">
+          <span id="kpiActionRate" class="text-3xl font-extrabold text-white">94.1</span>
+          <span class="text-xs text-slate-400">%</span>
+        </div>
+        <span class="text-xs text-slate-400 mt-2">32건 조치완료 / 34건 발굴</span>
+      </div>
+
+      <!-- KPI 5 -->
+      <div class="bg-slate-800 border border-slate-700 rounded-xl p-4 flex flex-col justify-between shadow-sm">
+        <div class="flex justify-between items-start">
+          <span class="text-xs font-semibold text-slate-400">무재해 달성 일수</span>
+          <i data-lucide="award" class="w-4 h-4 text-purple-400"></i>
+        </div>
+        <div class="mt-3 flex items-baseline gap-2">
+          <span id="kpiAccidentFree" class="text-3xl font-extrabold text-emerald-400">412</span>
+          <span class="text-xs text-slate-400">/ 목표 500일</span>
+        </div>
+        <span class="text-xs text-slate-400 mt-2">의장공정 안전 목표 순항 중</span>
+      </div>
+    </section>
+
+    <!-- 2. 차트 시각화 영역 (2x2 Grid) -->
+    <section class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      
+      <!-- 차트 1: 주차별 추세 (라인/막대 복합) -->
+      <div class="bg-slate-800 border border-slate-700 rounded-xl p-5 shadow-sm">
+        <div class="flex justify-between items-center mb-4">
+          <h2 class="text-sm font-bold text-slate-200 flex items-center gap-2">
+            <i data-lucide="trending-up" class="w-4 h-4 text-blue-400"></i>
+            주차별 안전활동 추이 및 개선실적
+          </h2>
+          <span class="text-xs text-slate-400">최근 5주 데이터</span>
+        </div>
+        <div class="h-64">
+          <canvas id="trendChart"></canvas>
+        </div>
+      </div>
+
+      <!-- 차트 2: 5대 핵심 안전항목 달성도 (레이더 차트) -->
+      <div class="bg-slate-800 border border-slate-700 rounded-xl p-5 shadow-sm">
+        <div class="flex justify-between items-center mb-4">
+          <h2 class="text-sm font-bold text-slate-200 flex items-center gap-2">
+            <i data-lucide="radar" class="w-4 h-4 text-cyan-400"></i>
+            선박의장 5대 핵심 안전항목 진단
+          </h2>
+          <span class="text-xs text-slate-400">목표 vs 현재수준</span>
+        </div>
+        <div class="h-64 flex justify-center">
+          <canvas id="radarChart"></canvas>
+        </div>
+      </div>
+
+      <!-- 차트 3: 의장 구역별 안전활동지수 (가로 막대) -->
+      <div class="bg-slate-800 border border-slate-700 rounded-xl p-5 shadow-sm">
+        <div class="flex justify-between items-center mb-4">
+          <h2 class="text-sm font-bold text-slate-200 flex items-center gap-2">
+            <i data-lucide="layout-grid" class="w-4 h-4 text-indigo-400"></i>
+            구역/공구별 안전지수 비교
+          </h2>
+          <span class="text-xs text-slate-400">기준점: 90점 이상 양호</span>
+        </div>
+        <div class="h-64">
+          <canvas id="areaChart"></canvas>
+        </div>
+      </div>
+
+      <!-- 차트 4: 4대 고위험 작업 분포 (도넛 차트) -->
+      <div class="bg-slate-800 border border-slate-700 rounded-xl p-5 shadow-sm">
+        <div class="flex justify-between items-center mb-4">
+          <h2 class="text-sm font-bold text-slate-200 flex items-center gap-2">
+            <i data-lucide="pie-chart" class="w-4 h-4 text-amber-400"></i>
+            고위험 작업 유형별 비중
+          </h2>
+          <span class="text-xs text-slate-400">당월 점검 실적</span>
+        </div>
+        <div class="h-64 flex justify-center">
+          <canvas id="riskDonutChart"></canvas>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. 현장 안전점검 및 아차사고 등록 리스트 테이블 -->
+    <section class="bg-slate-800 border border-slate-700 rounded-xl p-5 shadow-sm">
+      <div class="flex flex-wrap justify-between items-center mb-4 gap-2">
+        <div>
+          <h2 class="text-sm font-bold text-slate-200 flex items-center gap-2">
+            <i data-lucide="clipboard-list" class="w-4 h-4 text-emerald-400"></i>
+            최근 현장 안전점검 및 조치 피드백 현황
+          </h2>
+          <p class="text-xs text-slate-400 mt-0.5">선박의장 작업 현장 위험요소 즉시 조치 이력</p>
+        </div>
+        <span id="recordCount" class="text-xs bg-slate-700 text-slate-300 px-2.5 py-1 rounded-full">총 4건</span>
+      </div>
+
+      <div class="overflow-x-auto">
+        <table class="w-full text-left text-xs text-slate-300">
+          <thead class="bg-slate-700/50 text-slate-400 font-semibold border-b border-slate-700">
+            <tr>
+              <th class="p-3">일자</th>
+              <th class="p-3">호선 / 구역</th>
+              <th class="p-3">위험작업 유형</th>
+              <th class="p-3">지적 및 위험요소</th>
+              <th class="p-3">평가점수</th>
+              <th class="p-3">조치상태</th>
+              <th class="p-3">담당자</th>
+              <th class="p-3 text-center">관리</th>
+            </tr>
+          </thead>
+          <tbody id="tableBody" class="divide-y divide-slate-700">
+            <!-- JavaScript 렌더링 영역 -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <!-- 데이터 입력 모달 (Modal) -->
+  <div id="inputModal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+    <div class="bg-slate-800 border border-slate-700 rounded-2xl w-full max-w-lg overflow-hidden shadow-2xl animate-fade-in">
+      <div class="px-6 py-4 border-b border-slate-700 flex justify-between items-center bg-slate-700/40">
+        <h3 class="font-bold text-white text-base flex items-center gap-2">
+          <i data-lucide="file-plus" class="w-5 h-5 text-blue-400"></i>
+          의장구역 안전점검 결과 등록
+        </h3>
+        <button onclick="closeModal()" class="text-slate-400 hover:text-white">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <form id="safetyForm" onsubmit="handleFormSubmit(event)" class="p-6 space-y-4 text-xs">
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label class="block text-slate-400 mb-1">점검 일자</label>
+            <input type="date" id="formDate" required class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2.5 text-white focus:outline-none focus:border-blue-500">
+          </div>
+          <div>
+            <label class="block text-slate-400 mb-1">담당 점검자</label>
+            <input type="text" id="formInspector" placeholder="예: 김안전 과장" required class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2.5 text-white focus:outline-none focus:border-blue-500">
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label class="block text-slate-400 mb-1">대상 호선/구역</label>
+            <select id="formArea" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2.5 text-white focus:outline-none focus:border-blue-500">
+              <option value="기관실의장">기관실 의장 (Machinery)</option>
+              <option value="선실의장">선실 의장 (Accommodation)</option>
+              <option value="갑판의장">갑판 의장 (Deck)</option>
+              <option value="선체블록의장">선체 블록 의장 (Block)</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-slate-400 mb-1">작업 유형</label>
+            <select id="formRiskType" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2.5 text-white focus:outline-none focus:border-blue-500">
+              <option value="화기작업">화기작업 (용접/취부/절단)</option>
+              <option value="밀폐구역">밀폐구역 (탱크/도장)</option>
+              <option value="고소작업">고소작업 (비계/사다리)</option>
+              <option value="양중작업">중량물 양중 (크레인/체인블록)</option>
+              <option value="일반작업">일반 의장 작업</option>
+            </select>
+          </div>
+        </div>
+
+        <div>
+          <div class="flex justify-between items-center mb-1">
+            <label class="text-slate-400">구역 안전활동 평가점수</label>
+            <span id="scoreDisplay" class="font-bold text-blue-400 text-sm">90점</span>
+          </div>
+          <input type="range" id="formScore" min="50" max="100" value="90" class="w-full h-2 bg-slate-700 rounded-lg appearance-none cursor-pointer accent-blue-500" oninput="document.getElementById('scoreDisplay').innerText = this.value + '점'">
+        </div>
+
+        <div>
+          <label class="block text-slate-400 mb-1">발견 위험요소 및 지적내용</label>
+          <textarea id="formDescription" rows="3" placeholder="현장에서 식별된 불안전한 상태 또는 행동 입력 (예: 케이블 타이 미체결로 인한 간섭 위험)" required class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2.5 text-white focus:outline-none focus:border-blue-500"></textarea>
+        </div>
+
+        <div>
+          <label class="block text-slate-400 mb-1">조치 상태</label>
+          <select id="formStatus" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2.5 text-white focus:outline-none focus:border-blue-500">
+            <option value="완료">즉시 조치완료</option>
+            <option value="진행중">조치 진행 중 (자재/비계 대기)</option>
+          </select>
+        </div>
+
+        <div class="flex justify-end gap-3 pt-3 border-t border-slate-700">
+          <button type="button" onclick="closeModal()" class="px-4 py-2 rounded-lg bg-slate-700 hover:bg-slate-600 text-slate-300 font-medium">취소</button>
+          <button type="submit" class="px-5 py-2 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-semibold">등록하기</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- JavaScript 애플리케이션 로직 -->
+  <script>
+    // 1. 초기 기본 데이터
+    const INITIAL_RECORDS = [
+      { id: 1, date: '2026-08-15', area: '기관실의장', riskType: '밀폐구역', desc: '이중저 탱크 내 유해가스 농도 측정표 게시 누락', score: 88, status: '완료', inspector: '박기술' },
+      { id: 2, date: '2026-08-14', area: '갑판의장', riskType: '화기작업', desc: '용접작업 하부 불티방지포 설치 범위 미흡', score: 92, status: '완료', inspector: '이의장' },
+      { id: 3, date: '2026-08-13', area: '선체블록의장', riskType: '고소작업', desc: '사다리 상부 고정로프 결속 불량 및 통로 잔재물', score: 78, status: '진행중', inspector: '최안전' },
+      { id: 4, date: '2026-08-12', area: '선실의장', riskType: '양중작업', desc: '의장 판넬 인양 시 슬링벨트 마모 상태 사전점검 미흡', score: 85, status: '완료', inspector: '정품질' }
+    ];
+
+    let safetyRecords = [];
+    let charts = {};
+
+    // 2. 초기 로딩 및 초기화
+    window.addEventListener('DOMContentLoaded', () => {
+      lucide.createIcons();
+      updateClock();
+      setInterval(updateClock, 1000);
+      document.getElementById('formDate').value = new Date().toISOString().split('T')[0];
+
+      loadData();
+      initCharts();
+      renderTable();
+      updateKPIs();
+    });
+
+    function updateClock() {
+      const now = new Date();
+      document.getElementById('liveClock').innerText = now.toLocaleString('ko-KR', {
+        month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit'
+      });
+    }
+
+    function loadData() {
+      const stored = localStorage.getItem('ship_safety_records');
+      if (stored) {
+        safetyRecords = JSON.parse(stored);
+      } else {
+        safetyRecords = [...INITIAL_RECORDS];
+        saveData();
+      }
+    }
+
+    function saveData() {
+      localStorage.setItem('ship_safety_records', JSON.stringify(safetyRecords));
+    }
+
+    function resetData() {
+      if (confirm('초기 데모 데이터로 복원하시겠습니까?')) {
+        safetyRecords = [...INITIAL_RECORDS];
+        saveData();
+        renderTable();
+        updateKPIs();
+        updateCharts();
+      }
+    }
+
+    // 3. 차트 초기화 함수
+    function initCharts() {
+      const chartCommonOptions = {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { labels: { color: '#94a3b8', font: { size: 11 } } }
+        }
+      };
+
+      // 3-1. 주차별 실적 추이 (Line / Bar 복합)
+      const ctxTrend = document.getElementById('trendChart').getContext('2d');
+      charts.trend = new Chart(ctxTrend, {
+        type: 'bar',
+        data: {
+          labels: ['30주차', '31주차', '32주차', '33주차', '34주차(현재)'],
+          datasets: [
+            {
+              type: 'line',
+              label: '안전활동지수(점)',
+              data: [91.2, 93.0, 94.5, 95.8, 96.2],
+              borderColor: '#38bdf8',
+              backgroundColor: '#38bdf8',
+              borderWidth: 2,
+              tension: 0.3,
+              yAxisID: 'y'
+            },
+            {
+              type: 'bar',
+              label: '위험개선 조치건수',
+              data: [12, 15, 8, 14, 10],
+              backgroundColor: 'rgba(59, 130, 246, 0.6)',
+              borderRadius: 4,
+              yAxisID: 'y1'
+            }
+          ]
+        },
+        options: {
+          ...chartCommonOptions,
+          scales: {
+            x: { grid: { color: '#334155' }, ticks: { color: '#94a3b8' } },
+            y: { min: 70, max: 100, grid: { color: '#334155' }, ticks: { color: '#94a3b8' }, title: { display: true, text: '지수 점수', color: '#94a3b8' } },
+            y1: { position: 'right', grid: { display: false }, ticks: { color: '#94a3b8' }, title: { display: true, text: '건수', color: '#94a3b8' } }
+          }
+        }
+      });
+
+      // 3-2. 5대 핵심 항목 방사형 차트
+      const ctxRadar = document.getElementById('radarChart').getContext('2d');
+      charts.radar = new Chart(ctxRadar, {
+        type: 'radar',
+        data: {
+          labels: ['보호구 착용', '화기·환기관리', '비계·통로안전', '밀폐가스측정', '정리정돈(5S)'],
+          datasets: [
+            {
+              label: '현장 실적',
+              data: [98, 92, 85, 96, 90],
+              backgroundColor: 'rgba(6, 182, 212, 0.25)',
+              borderColor: '#06b6d4',
+              pointBackgroundColor: '#06b6d4'
+            },
+            {
+              label: '관리 목표',
+              data: [95, 95, 95, 95, 95],
+              borderColor: '#64748b',
+              borderDash: [4, 4],
+              fill: false
+            }
+          ]
+        },
+        options: {
+          ...chartCommonOptions,
+          scales: {
+            r: {
+              angleLines: { color: '#334155' },
+              grid: { color: '#334155' },
+              pointLabels: { color: '#cbd5e1', font: { size: 11 } },
+              ticks: { display: false, min: 50, max: 100 }
+            }
+          }
+        }
+      });
+
+      // 3-3. 구역별 안전지수 (가로 막대)
+      const ctxArea = document.getElementById('areaChart').getContext('2d');
+      charts.area = new Chart(ctxArea, {
+        type: 'bar',
+        data: {
+          labels: ['기관실의장', '선실의장', '갑판의장', '선체블록의장'],
+          datasets: [{
+            label: '구역별 안전지수',
+            data: [94, 98, 91, 88],
+            backgroundColor: ['#3b82f6', '#10b981', '#f59e0b', '#6366f1'],
+            borderRadius: 6
+          }]
+        },
+        options: {
+          indexAxis: 'y',
+          ...chartCommonOptions,
+          scales: {
+            x: { min: 70, max: 100, grid: { color: '#334155' }, ticks: { color: '#94a3b8' } },
+            y: { grid: { display: false }, ticks: { color: '#cbd5e1' } }
+          }
+        }
+      });
+
+      // 3-4. 위험작업 분포 (도넛)
+      const ctxDonut = document.getElementById('riskDonutChart').getContext('2d');
+      charts.donut = new Chart(ctxDonut, {
+        type: 'doughnut',
+        data: {
+          labels: ['화기작업', '밀폐구역', '고소작업', '양중작업', '일반'],
+          datasets: [{
+            data: [35, 25, 20, 15, 5],
+            backgroundColor: ['#ef4444', '#f97316', '#eab308', '#3b82f6', '#64748b'],
+            borderWidth: 0
+          }]
+        },
+        options: {
+          ...chartCommonOptions,
+          cutout: '65%'
+        }
+      });
+    }
+
+    // 4. 테이블 렌더링
+    function renderTable() {
+      const tbody = document.getElementById('tableBody');
+      tbody.innerHTML = '';
+
+      document.getElementById('recordCount').innerText = `총 ${safetyRecords.length}건`;
+
+      safetyRecords.forEach((item) => {
+        const tr = document.createElement('tr');
+        tr.className = 'hover:bg-slate-700/30 transition';
+
+        const statusBadge = item.status === '완료' 
+          ? `<span class="px-2 py-0.5 rounded text-xs bg-emerald-500/20 text-emerald-400 font-semibold">조치완료</span>`
+          : `<span class="px-2 py-0.5 rounded text-xs bg-amber-500/20 text-amber-400 font-semibold">진행중</span>`;
+
+        tr.innerHTML = `
+          <td class="p-3 text-slate-400">${item.date}</td>
+          <td class="p-3 font-medium text-slate-200">${item.area}</td>
+          <td class="p-3"><span class="px-2 py-0.5 rounded bg-slate-700 text-slate-300 text-xs">${item.riskType}</span></td>
+          <td class="p-3 text-slate-300 max-w-xs truncate" title="${item.desc}">${item.desc}</td>
+          <td class="p-3 font-semibold ${item.score >= 90 ? 'text-emerald-400' : 'text-amber-400'}">${item.score}점</td>
+          <td class="p-3">${statusBadge}</td>
+          <td class="p-3 text-slate-400">${item.inspector}</td>
+          <td class="p-3 text-center">
+            <button onclick="deleteRecord(${item.id})" class="text-rose-400 hover:text-rose-300 text-xs px-2 py-1 bg-rose-500/10 rounded">삭제</button>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+      lucide.createIcons();
+    }
+
+    // 5. 지표 및 차트 동적 업데이트
+    function updateKPIs() {
+      if (safetyRecords.length === 0) return;
+
+      const avgScore = (safetyRecords.reduce((acc, cur) => acc + Number(cur.score), 0) / safetyRecords.length).toFixed(1);
+      document.getElementById('kpiSafetyScore').innerText = avgScore;
+      document.getElementById('kpiScoreBar').style.width = `${avgScore}%`;
+
+      const badge = document.getElementById('gradeBadge');
+      if (avgScore >= 95) {
+        badge.className = 'text-xs px-2 py-0.5 rounded font-bold bg-emerald-500/20 text-emerald-400';
+        badge.innerText = '우수';
+      } else if (avgScore >= 85) {
+        badge.className = 'text-xs px-2 py-0.5 rounded font-bold bg-blue-500/20 text-blue-400';
+        badge.innerText = '양호';
+      } else {
+        badge.className = 'text-xs px-2 py-0.5 rounded font-bold bg-rose-500/20 text-rose-400';
+        badge.innerText = '주의';
+      }
+
+      const completed = safetyRecords.filter(r => r.status === '완료').length;
+      const rate = ((completed / safetyRecords.length) * 100).toFixed(1);
+      document.getElementById('kpiActionRate').innerText = rate;
+    }
+
+    function updateCharts() {
+      // 위험 유형별 건수 집계 후 도넛 차트 업데이트
+      const counts = { '화기작업': 0, '밀폐구역': 0, '고소작업': 0, '양중작업': 0, '일반작업': 0 };
+      safetyRecords.forEach(r => {
+        if (counts[r.riskType] !== undefined) counts[r.riskType]++;
+        else counts['일반작업']++;
+      });
+      charts.donut.data.datasets[0].data = Object.values(counts);
+      charts.donut.update();
+    }
+
+    // 6. 데이터 추가 및 삭제 핸들러
+    function handleFormSubmit(e) {
+      e.preventDefault();
+      const newRecord = {
+        id: Date.now(),
+        date: document.getElementById('formDate').value,
+        inspector: document.getElementById('formInspector').value,
+        area: document.getElementById('formArea').value,
+        riskType: document.getElementById('formRiskType').value,
+        score: Number(document.getElementById('formScore').value),
+        desc: document.getElementById('formDescription').value,
+        status: document.getElementById('formStatus').value
+      };
+
+      safetyRecords.unshift(newRecord);
+      saveData();
+      renderTable();
+      updateKPIs();
+      updateCharts();
+      closeModal();
+      document.getElementById('safetyForm').reset();
+    }
+
+    function deleteRecord(id) {
+      if (confirm('해당 점검 기록을 삭제하시겠습니까?')) {
+        safetyRecords = safetyRecords.filter(r => r.id !== id);
+        saveData();
+        renderTable();
+        updateKPIs();
+        updateCharts();
+      }
+    }
+
+    // 7. 모달 제어
+    function openModal() {
+      document.getElementById('inputModal').classList.remove('hidden');
+    }
+    function closeModal() {
+      document.getElementById('inputModal').classList.add('hidden');
+    }
+  </script>
+</body>
+</html>

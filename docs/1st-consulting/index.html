@@ -1,0 +1,1434 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>제조업 AI 업무자동화 Dashboard</title>
+
+<style>
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+    font-family:Arial,"Malgun Gothic",sans-serif;
+}
+
+body{
+    background:#f4f6f9;
+    color:#222;
+}
+
+.wrapper{
+    display:flex;
+    min-height:100vh;
+}
+
+/* 왼쪽 메뉴 */
+
+.sidebar{
+    width:240px;
+    background:#1f2937;
+    color:white;
+    padding:25px 18px;
+}
+
+.sidebar h2{
+    margin-bottom:30px;
+    line-height:1.5;
+}
+
+.menu{
+    list-style:none;
+}
+
+.menu li{
+    padding:13px;
+    margin-bottom:8px;
+    background:#2b3647;
+    border-radius:8px;
+    cursor:pointer;
+}
+
+.menu li:hover{
+    background:#2563eb;
+}
+
+/* 메인 */
+
+.main{
+    flex:1;
+    padding:30px;
+}
+
+.header{
+    margin-bottom:25px;
+}
+
+.header h1{
+    font-size:28px;
+    margin-bottom:7px;
+}
+
+.header p{
+    color:#666;
+}
+
+/* KPI */
+
+.cards{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:15px;
+    margin-bottom:25px;
+}
+
+.card{
+    background:white;
+    padding:20px;
+    border-radius:12px;
+    box-shadow:0 3px 10px rgba(0,0,0,0.07);
+}
+
+.card h3{
+    font-size:14px;
+    color:#777;
+    margin-bottom:10px;
+}
+
+.value{
+    font-size:25px;
+    font-weight:bold;
+}
+
+.blue{color:#2563eb;}
+.green{color:#16a34a;}
+.red{color:#dc2626;}
+.orange{color:#ea580c;}
+
+/* Section */
+
+.section{
+    background:white;
+    margin-bottom:25px;
+    padding:22px;
+    border-radius:12px;
+    box-shadow:0 3px 10px rgba(0,0,0,0.07);
+}
+
+.section h2{
+    margin-bottom:18px;
+}
+
+/* Form */
+
+.form-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:15px;
+}
+
+.form-group{
+    display:flex;
+    flex-direction:column;
+}
+
+.form-group label{
+    font-weight:bold;
+    margin-bottom:6px;
+    font-size:14px;
+}
+
+input,
+select,
+textarea{
+    padding:10px;
+    border:1px solid #ccc;
+    border-radius:7px;
+}
+
+textarea{
+    resize:vertical;
+}
+
+.btn{
+    margin-top:18px;
+    padding:12px 22px;
+    border:none;
+    border-radius:8px;
+    background:#2563eb;
+    color:white;
+    cursor:pointer;
+}
+
+.btn:hover{
+    background:#1d4ed8;
+}
+
+.delete-btn{
+    border:none;
+    background:#dc2626;
+    color:white;
+    padding:6px 10px;
+    border-radius:6px;
+    cursor:pointer;
+}
+
+/* Table */
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    margin-top:15px;
+}
+
+th,
+td{
+    padding:10px;
+    border-bottom:1px solid #ddd;
+    text-align:center;
+    font-size:14px;
+}
+
+th{
+    background:#f3f4f6;
+}
+
+/* 영수증 이미지 */
+
+.receipt-preview{
+    margin-top:15px;
+}
+
+.receipt-preview img{
+    max-width:300px;
+    max-height:300px;
+    border:1px solid #ddd;
+    border-radius:10px;
+}
+
+/* 검색 */
+
+.search-box{
+    display:flex;
+    gap:10px;
+    margin-bottom:15px;
+}
+
+.search-box input{
+    width:300px;
+}
+
+.summary-box{
+    padding:15px;
+    margin-top:15px;
+    background:#eff6ff;
+    border-radius:10px;
+    font-weight:bold;
+}
+
+/* 반응형 */
+
+@media(max-width:1000px){
+
+    .cards,
+    .form-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+}
+
+@media(max-width:700px){
+
+    .wrapper{
+        flex-direction:column;
+    }
+
+    .sidebar{
+        width:100%;
+    }
+
+    .cards,
+    .form-grid{
+        grid-template-columns:1fr;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="wrapper">
+
+<!-- 왼쪽 메뉴 -->
+
+<aside class="sidebar">
+
+<h2>
+제조업 AI<br>
+업무자동화
+</h2>
+
+<ul class="menu">
+
+<li>🏠 Dashboard</li>
+
+<li>📝 생산 데이터 입력</li>
+
+<li>📊 품질관리</li>
+
+<li>📑 일일 보고서</li>
+
+<li>💰 회계처리</li>
+
+<li onclick="scrollReceipt()">
+🧾 영수증 자료실
+</li>
+
+<li>📁 문서 자료실</li>
+
+<li>⚙️ 기준정보</li>
+
+</ul>
+
+</aside>
+
+
+<!-- 메인 -->
+
+<main class="main">
+
+<div class="header">
+
+<h1>
+제조업 AI 업무자동화 Dashboard
+</h1>
+
+<p>
+Excel 중심 업무를 웹 기반 업무자동화 시스템으로 전환하는 교육용 PoC
+</p>
+
+</div>
+
+
+<!-- KPI -->
+
+<div class="cards">
+
+<div class="card">
+<h3>오늘 등록 영수증</h3>
+<div id="todayCount" class="value blue">
+0건
+</div>
+</div>
+
+
+<div class="card">
+<h3>이번 달 지출금액</h3>
+<div id="totalAmount" class="value red">
+0원
+</div>
+</div>
+
+
+<div class="card">
+<h3>등록 증빙자료</h3>
+<div id="receiptCount" class="value green">
+0건
+</div>
+</div>
+
+
+<div class="card">
+<h3>미처리 증빙</h3>
+<div id="pendingCount" class="value orange">
+0건
+</div>
+</div>
+
+</div>
+
+
+<!-- 영수증 자료실 -->
+
+<section
+class="section"
+id="receiptSection">
+
+<h2>
+🧾 회계처리 영수증 자료실
+</h2>
+
+<p style="margin-bottom:18px;color:#666;">
+
+업무 중 발생한 영수증과 증빙자료를 등록하고
+회계처리를 위한 기초 데이터를 관리합니다.
+
+</p>
+
+
+<div class="form-grid">
+
+<!-- 거래일자 -->
+
+<div class="form-group">
+
+<label>
+거래일자
+</label>
+
+<input
+type="date"
+id="receiptDate">
+
+</div>
+
+
+<!-- 거래처 -->
+
+<div class="form-group">
+
+<label>
+거래처
+</label>
+
+<input
+type="text"
+id="vendor"
+placeholder="예: OO주유소">
+
+</div>
+
+
+<!-- 사업자번호 -->
+
+<div class="form-group">
+
+<label>
+사업자번호
+</label>
+
+<input
+type="text"
+id="businessNo"
+placeholder="예: 123-45-67890">
+
+</div>
+
+
+<!-- 금액 -->
+
+<div class="form-group">
+
+<label>
+금액
+</label>
+
+<input
+type="number"
+id="amount"
+placeholder="예: 45000">
+
+</div>
+
+
+<!-- 계정과목 -->
+
+<div class="form-group">
+
+<label>
+계정과목
+</label>
+
+<select id="account">
+
+<option value="">
+계정과목 선택
+</option>
+
+<option>
+교통비
+</option>
+
+<option>
+출장비
+</option>
+
+<option>
+식대
+</option>
+
+<option>
+소모품비
+</option>
+
+<option>
+차량유지비
+</option>
+
+<option>
+통신비
+</option>
+
+<option>
+교육훈련비
+</option>
+
+<option>
+접대비
+</option>
+
+<option>
+복리후생비
+</option>
+
+<option>
+기타
+</option>
+
+</select>
+
+</div>
+
+
+<!-- 결제방법 -->
+
+<div class="form-group">
+
+<label>
+결제수단
+</label>
+
+<select id="payment">
+
+<option>
+법인카드
+</option>
+
+<option>
+개인카드
+</option>
+
+<option>
+현금
+</option>
+
+<option>
+계좌이체
+</option>
+
+<option>
+기타
+</option>
+
+</select>
+
+</div>
+
+
+<!-- 담당부서 -->
+
+<div class="form-group">
+
+<label>
+사용부서
+</label>
+
+<input
+type="text"
+id="department"
+placeholder="예: 생산관리팀">
+
+</div>
+
+
+<!-- 사용자 -->
+
+<div class="form-group">
+
+<label>
+사용자
+</label>
+
+<input
+type="text"
+id="userName"
+placeholder="담당자">
+
+</div>
+
+
+<!-- 처리상태 -->
+
+<div class="form-group">
+
+<label>
+처리상태
+</label>
+
+<select id="status">
+
+<option>
+미처리
+</option>
+
+<option>
+확인중
+</option>
+
+<option>
+회계처리 완료
+</option>
+
+</select>
+
+</div>
+
+
+<!-- 사용목적 -->
+
+<div class="form-group">
+
+<label>
+사용목적
+</label>
+
+<input
+type="text"
+id="purpose"
+placeholder="예: 현장 출장 주유비">
+
+</div>
+
+
+<!-- 메모 -->
+
+<div class="form-group">
+
+<label>
+비고
+</label>
+
+<input
+type="text"
+id="memo"
+placeholder="추가 메모">
+
+</div>
+
+
+<!-- 파일 -->
+
+<div class="form-group">
+
+<label>
+영수증 파일
+</label>
+
+<input
+type="file"
+id="receiptFile"
+accept="image/*">
+
+</div>
+
+</div>
+
+
+<!-- 미리보기 -->
+
+<div class="receipt-preview">
+
+<img
+id="previewImage"
+style="display:none;">
+
+</div>
+
+
+<button
+class="btn"
+onclick="saveReceipt()">
+
+영수증 등록
+
+</button>
+
+</section>
+
+
+<!-- 자료 검색 -->
+
+<section class="section">
+
+<h2>
+🔍 영수증 검색
+</h2>
+
+<div class="search-box">
+
+<input
+type="text"
+id="searchInput"
+placeholder="거래처 또는 계정과목 검색">
+
+<button
+class="btn"
+style="margin-top:0;"
+onclick="searchReceipt()">
+
+검색
+
+</button>
+
+
+<button
+class="btn"
+style="margin-top:0;background:#64748b;"
+onclick="renderReceipts()">
+
+전체보기
+
+</button>
+
+</div>
+
+</section>
+
+
+<!-- 목록 -->
+
+<section class="section">
+
+<h2>
+📂 등록된 영수증 자료
+</h2>
+
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>번호</th>
+
+<th>거래일자</th>
+
+<th>거래처</th>
+
+<th>계정과목</th>
+
+<th>금액</th>
+
+<th>결제수단</th>
+
+<th>사용부서</th>
+
+<th>처리상태</th>
+
+<th>영수증</th>
+
+<th>삭제</th>
+
+</tr>
+
+</thead>
+
+
+<tbody id="receiptTable">
+
+</tbody>
+
+</table>
+
+
+<div class="summary-box">
+
+등록건수 :
+<span id="summaryCount">
+0
+</span>
+건
+
+&nbsp;&nbsp;&nbsp;
+
+총 금액 :
+<span id="summaryAmount">
+0
+</span>
+원
+
+</div>
+
+</section>
+
+
+</main>
+
+</div>
+
+
+
+<script>
+
+/************************************************
+  1. 기본 설정
+************************************************/
+
+document.getElementById("receiptDate").value =
+new Date().toISOString().split("T")[0];
+
+
+/************************************************
+  2. 저장 데이터 불러오기
+************************************************/
+
+let receipts =
+JSON.parse(
+localStorage.getItem("receiptData")
+) || [];
+
+
+/************************************************
+  3. 영수증 이미지 미리보기
+************************************************/
+
+let receiptImage = "";
+
+document
+.getElementById("receiptFile")
+.addEventListener(
+"change",
+function(event){
+
+const file =
+event.target.files[0];
+
+if(!file){
+return;
+}
+
+const reader =
+new FileReader();
+
+reader.onload =
+function(e){
+
+receiptImage =
+e.target.result;
+
+const preview =
+document.getElementById(
+"previewImage"
+);
+
+preview.src =
+receiptImage;
+
+preview.style.display =
+"block";
+
+};
+
+reader.readAsDataURL(file);
+
+});
+
+
+/************************************************
+  4. 영수증 저장
+************************************************/
+
+function saveReceipt(){
+
+const date =
+document.getElementById(
+"receiptDate"
+).value;
+
+const vendor =
+document.getElementById(
+"vendor"
+).value.trim();
+
+const businessNo =
+document.getElementById(
+"businessNo"
+).value.trim();
+
+const amount =
+Number(
+document.getElementById(
+"amount"
+).value
+);
+
+const account =
+document.getElementById(
+"account"
+).value;
+
+const payment =
+document.getElementById(
+"payment"
+).value;
+
+const department =
+document.getElementById(
+"department"
+).value.trim();
+
+const userName =
+document.getElementById(
+"userName"
+).value.trim();
+
+const status =
+document.getElementById(
+"status"
+).value;
+
+const purpose =
+document.getElementById(
+"purpose"
+).value.trim();
+
+const memo =
+document.getElementById(
+"memo"
+).value.trim();
+
+
+if(
+!date ||
+!vendor ||
+!amount ||
+!account
+){
+
+alert(
+"거래일자, 거래처, 금액, 계정과목은 필수입니다."
+);
+
+return;
+
+}
+
+
+const newReceipt = {
+
+id:Date.now(),
+
+date:date,
+
+vendor:vendor,
+
+businessNo:businessNo,
+
+amount:amount,
+
+account:account,
+
+payment:payment,
+
+department:department,
+
+userName:userName,
+
+status:status,
+
+purpose:purpose,
+
+memo:memo,
+
+image:receiptImage
+
+};
+
+
+receipts.unshift(
+newReceipt
+);
+
+
+saveLocalStorage();
+
+renderReceipts();
+
+clearForm();
+
+alert(
+"영수증 자료가 등록되었습니다."
+);
+
+}
+
+
+/************************************************
+  5. LocalStorage 저장
+************************************************/
+
+function saveLocalStorage(){
+
+try{
+
+localStorage.setItem(
+"receiptData",
+JSON.stringify(receipts)
+);
+
+}catch(error){
+
+alert(
+"저장 공간이 부족할 수 있습니다.\n영수증 이미지를 너무 많이 저장하면 브라우저 저장 한도를 초과할 수 있습니다."
+);
+
+}
+
+}
+
+
+/************************************************
+  6. 목록 출력
+************************************************/
+
+function renderReceipts(
+list = receipts
+){
+
+const table =
+document.getElementById(
+"receiptTable"
+);
+
+table.innerHTML = "";
+
+
+let total = 0;
+
+
+list.forEach(
+function(item,index){
+
+total +=
+Number(item.amount);
+
+
+let imageButton = "-";
+
+if(item.image){
+
+imageButton = `
+<button
+onclick="viewReceipt(${item.id})"
+style="
+border:none;
+background:#16a34a;
+color:white;
+padding:6px 10px;
+border-radius:6px;
+cursor:pointer;
+">
+보기
+</button>
+`;
+
+}
+
+
+const row =
+document.createElement("tr");
+
+
+row.innerHTML = `
+
+<td>
+${index+1}
+</td>
+
+<td>
+${item.date}
+</td>
+
+<td>
+${item.vendor}
+</td>
+
+<td>
+${item.account}
+</td>
+
+<td>
+${Number(item.amount).toLocaleString()}원
+</td>
+
+<td>
+${item.payment}
+</td>
+
+<td>
+${item.department || "-"}
+</td>
+
+<td>
+${item.status}
+</td>
+
+<td>
+${imageButton}
+</td>
+
+<td>
+
+<button
+class="delete-btn"
+onclick="deleteReceipt(${item.id})">
+
+삭제
+
+</button>
+
+</td>
+
+`;
+
+table.appendChild(row);
+
+});
+
+
+document.getElementById(
+"summaryCount"
+).innerText =
+list.length;
+
+
+document.getElementById(
+"summaryAmount"
+).innerText =
+total.toLocaleString();
+
+
+updateDashboard();
+
+}
+
+
+/************************************************
+  7. 영수증 보기
+************************************************/
+
+function viewReceipt(id){
+
+const item =
+receipts.find(
+r => r.id === id
+);
+
+if(
+!item ||
+!item.image
+){
+
+alert(
+"등록된 영수증 이미지가 없습니다."
+);
+
+return;
+
+}
+
+
+const newWindow =
+window.open(
+"",
+"_blank"
+);
+
+
+newWindow.document.write(`
+
+<html>
+
+<head>
+
+<title>
+영수증 보기
+</title>
+
+</head>
+
+<body
+style="
+text-align:center;
+font-family:Arial;
+background:#f4f6f9;
+padding:30px;
+">
+
+<h2>
+${item.vendor}
+</h2>
+
+<p>
+${item.date}
+</p>
+
+<p>
+금액 :
+${Number(item.amount).toLocaleString()}원
+</p>
+
+<img
+src="${item.image}"
+style="
+max-width:90%;
+max-height:80vh;
+border-radius:10px;
+">
+
+</body>
+
+</html>
+
+`);
+
+}
+
+
+/************************************************
+  8. 삭제
+************************************************/
+
+function deleteReceipt(id){
+
+if(
+confirm(
+"이 영수증 자료를 삭제하시겠습니까?"
+)
+){
+
+receipts =
+receipts.filter(
+item =>
+item.id !== id
+);
+
+saveLocalStorage();
+
+renderReceipts();
+
+}
+
+}
+
+
+/************************************************
+  9. 검색
+************************************************/
+
+function searchReceipt(){
+
+const keyword =
+document
+.getElementById(
+"searchInput"
+)
+.value
+.toLowerCase()
+.trim();
+
+
+const result =
+receipts.filter(
+
+item =>
+
+item.vendor
+.toLowerCase()
+.includes(keyword)
+
+||
+
+item.account
+.toLowerCase()
+.includes(keyword)
+
+||
+
+(item.department || "")
+.toLowerCase()
+.includes(keyword)
+
+||
+
+(item.purpose || "")
+.toLowerCase()
+.includes(keyword)
+
+);
+
+
+renderReceipts(
+result
+);
+
+}
+
+
+/************************************************
+  10. 입력폼 초기화
+************************************************/
+
+function clearForm(){
+
+document.getElementById(
+"vendor"
+).value = "";
+
+document.getElementById(
+"businessNo"
+).value = "";
+
+document.getElementById(
+"amount"
+).value = "";
+
+document.getElementById(
+"account"
+).value = "";
+
+document.getElementById(
+"department"
+).value = "";
+
+document.getElementById(
+"userName"
+).value = "";
+
+document.getElementById(
+"purpose"
+).value = "";
+
+document.getElementById(
+"memo"
+).value = "";
+
+document.getElementById(
+"receiptFile"
+).value = "";
+
+document.getElementById(
+"previewImage"
+).style.display = "none";
+
+receiptImage = "";
+
+}
+
+
+/************************************************
+  11. Dashboard KPI 계산
+************************************************/
+
+function updateDashboard(){
+
+const today =
+new Date()
+.toISOString()
+.split("T")[0];
+
+
+let todayCount = 0;
+
+let totalAmount = 0;
+
+let pendingCount = 0;
+
+
+receipts.forEach(
+function(item){
+
+if(
+item.date === today
+){
+
+todayCount++;
+
+}
+
+totalAmount +=
+Number(item.amount);
+
+
+if(
+item.status !==
+"회계처리 완료"
+){
+
+pendingCount++;
+
+}
+
+});
+
+
+document.getElementById(
+"todayCount"
+).innerText =
+todayCount + "건";
+
+
+document.getElementById(
+"receiptCount"
+).innerText =
+receipts.length + "건";
+
+
+document.getElementById(
+"totalAmount"
+).innerText =
+totalAmount.toLocaleString()
++ "원";
+
+
+document.getElementById(
+"pendingCount"
+).innerText =
+pendingCount + "건";
+
+}
+
+
+/************************************************
+  12. 영수증 자료실 이동
+************************************************/
+
+function scrollReceipt(){
+
+document
+.getElementById(
+"receiptSection"
+)
+.scrollIntoView({
+behavior:"smooth"
+});
+
+}
+
+
+/************************************************
+  13. 최초 화면 실행
+************************************************/
+
+renderReceipts();
+
+</script>
+
+</body>
+
+</html>
