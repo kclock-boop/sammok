@@ -1,5 +1,10 @@
 # 삼목기업 AI 훈련로드맵 · 기업소개 홈페이지 초안
 
+## 최종 전달 링크
+
+- 삼목기업 소개 홈페이지: https://kclock-boop.github.io/sammok/
+- 선박의장 안전활동지수 대시보드: https://kclock-boop.github.io/sammok/docs/SAMMOK_ship_outfitting_safety_dashboard.html
+
 삼목기업의 2026년 8월 28일(금) 예정 `AI 훈련로드맵 2차 컨설팅`과,
 조선·해양 협력사 소개형 홈페이지 검토를 위해 정리한 저장소입니다.
 
@@ -84,11 +89,6 @@
 - GitHub 저장소를 기반으로 Pages 또는 링크 공유 확장
 
 ## 공유용 문구
-
-### 최종 전달 링크
-
-- 삼목기업 소개 홈페이지: https://kclock-boop.github.io/sammok/
-- 선박의장 안전활동지수 대시보드: https://kclock-boop.github.io/sammok/docs/SAMMOK_ship_outfitting_safety_dashboard.html
 
 ### 1) 담당자에게 보내는 기본 문구
 
