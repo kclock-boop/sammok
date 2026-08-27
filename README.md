@@ -85,6 +85,11 @@
 
 ## 공유용 문구
 
+### 최종 전달 링크
+
+- 삼목기업 소개 홈페이지: https://kclock-boop.github.io/sammok/
+- 선박의장 안전활동지수 대시보드: https://kclock-boop.github.io/sammok/docs/SAMMOK_ship_outfitting_safety_dashboard.html
+
 ### 1) 담당자에게 보내는 기본 문구
 
 안녕하세요. 검토용 링크 전달드립니다.  
