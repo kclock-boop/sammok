@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>삼목기업 | AI 훈련로드맵 2차 컨설팅 허브</title>
+  <meta name="description" content="삼목기업 선박의장 현장을 위한 AI 훈련로드맵 2차 컨설팅 허브 페이지입니다. 안전활동, 현장보고, 코칭, Dashboard 시안을 한 화면에서 정리합니다.">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://code.iconify.design/iconify-icon/2.3.0/iconify-icon.min.js"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            ink: "#f5f7fb",
+            paper: "#d9e2f2",
+            line: "rgba(255,255,255,0.10)",
+            deep: "#0a0f17",
+            deep2: "#101826",
+            panel: "#121c2c",
+            panel2: "#172336",
+            amber: "#d7a84e",
+            ambersoft: "#f2e5c6",
+            steel: "#8ca0ba",
+            mint: "#6fd3b3"
+          },
+          fontFamily: {
+            sans: ["Pretendard", "Geist", "system-ui", "sans-serif"],
+            display: ["Geist", "Pretendard", "system-ui", "sans-serif"]
+          },
+          boxShadow: {
+            frame: "0 30px 80px rgba(0,0,0,0.28)",
+            plate: "0 18px 50px rgba(0,0,0,0.22)"
+          }
+        }
+      }
+    };
+  </script>
+  <style>
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: "Pretendard", "Geist", system-ui, sans-serif;
+      color: #f5f7fb;
+      background:
+        radial-gradient(circle at 10% 10%, rgba(215,168,78,0.15), transparent 22%),
+        radial-gradient(circle at 88% 18%, rgba(111,211,179,0.12), transparent 18%),
+        linear-gradient(180deg, #090d13 0%, #0b111b 45%, #0a1018 100%);
+    }
+    .break-kr { word-break: keep-all; }
+    .reveal {
+      opacity: 0;
+      transform: translateY(2rem);
+      filter: blur(4px);
+      transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .reveal.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+      filter: blur(0);
+    }
+    .glass-pill {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.10);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.10);
+      backdrop-filter: blur(16px);
+    }
+    .double-bezel {
+      padding: 6px;
+      border-radius: 2rem;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      box-shadow: 0 24px 70px rgba(0,0,0,0.24);
+    }
+    .double-bezel > div {
+      border-radius: calc(2rem - 6px);
+      border: 1px solid rgba(255,255,255,0.08);
+      background:
+        linear-gradient(180deg, rgba(18,28,44,0.92), rgba(14,22,35,0.96));
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.08);
+    }
+    .hero-mesh::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(rgba(255,255,255,0.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
+      background-size: 34px 34px;
+      opacity: 0.12;
+      mask-image: linear-gradient(180deg, rgba(0,0,0,0.8), transparent 100%);
+      pointer-events: none;
+    }
+    .orb {
+      animation: float 6s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+    }
+    .orb.delay {
+      animation-delay: 1.4s;
+    }
+    .cta-btn, .nav-link, .lift {
+      transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .cta-btn:hover, .lift:hover { transform: translateY(-3px) scale(1.02); }
+    .cta-btn:active { transform: scale(0.98); }
+    .section-noise::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image:
+        radial-gradient(rgba(255,255,255,0.06) 0.6px, transparent 0.6px);
+      background-size: 16px 16px;
+      opacity: 0.05;
+      pointer-events: none;
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-12px); }
+    }
+  </style>
+</head>
+<body>
+  <div class="fixed inset-0 pointer-events-none z-[60] opacity-[0.04]" style="background-image: radial-gradient(rgba(255,255,255,0.9) 0.7px, transparent 0.7px); background-size: 18px 18px;"></div>
+
+  <header class="px-4 pt-5 sm:px-6 lg:px-8">
+    <div class="mx-auto flex max-w-7xl items-center justify-between gap-4 rounded-full glass-pill px-5 py-3">
+      <div class="flex items-center gap-3">
+        <div class="flex h-11 w-11 items-center justify-center rounded-2xl bg-[rgba(215,168,78,0.16)] border border-[rgba(215,168,78,0.25)] text-amber">
+          <iconify-icon icon="solar:shield-check-linear" width="22"></iconify-icon>
+        </div>
+        <div>
+          <p class="text-[11px] font-bold uppercase tracking-[0.18em] text-ambersoft">Consulting Hub</p>
+          <p class="text-sm font-semibold text-ink">삼목기업 AI 훈련로드맵</p>
+        </div>
+      </div>
+      <nav class="hidden items-center gap-5 md:flex">
+        <a class="nav-link text-sm text-paper hover:text-white" href="#overview">개요</a>
+        <a class="nav-link text-sm text-paper hover:text-white" href="#focus">핵심의제</a>
+        <a class="nav-link text-sm text-paper hover:text-white" href="#dashboard">Dashboard</a>
+        <a class="nav-link text-sm text-paper hover:text-white" href="#next">다음단계</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section id="overview" class="relative min-h-[100dvh] px-4 pb-20 pt-12 sm:px-6 lg:px-8">
+      <div class="hero-mesh section-noise absolute inset-0"></div>
+      <div class="orb absolute left-[8%] top-24 h-40 w-40 rounded-full bg-[radial-gradient(circle,rgba(215,168,78,0.22),transparent_65%)] blur-2xl"></div>
+      <div class="orb delay absolute right-[8%] top-36 h-56 w-56 rounded-full bg-[radial-gradient(circle,rgba(111,211,179,0.18),transparent_65%)] blur-2xl"></div>
+
+      <div class="relative z-10 mx-auto grid max-w-7xl gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
+        <div class="reveal break-kr">
+          <span class="inline-flex rounded-full border border-[rgba(215,168,78,0.24)] bg-[rgba(215,168,78,0.10)] px-4 py-2 text-[11px] font-bold uppercase tracking-[0.18em] text-ambersoft">
+            2026.08.28 Fri · 2nd Consulting
+          </span>
+          <h1 class="mt-6 max-w-4xl font-display text-4xl font-bold leading-tight tracking-tight text-ink sm:text-5xl lg:text-6xl">
+            선박의장 현장의 안전활동과
+            <span class="block text-amber">AI 훈련 운영체계를 같이 설계하는 회차</span>
+          </h1>
+          <p class="mt-6 max-w-2xl text-base leading-relaxed text-paper sm:text-lg">
+            이번 2차 컨설팅은 큰 시스템 설명보다, 삼목기업 현장에서 실제로 바로 시작할 수 있는
+            안전활동, 보고, 코칭, Dashboard 흐름을 좁히는 데 목적이 있습니다.
+          </p>
+
+          <div class="mt-8 flex flex-col gap-4 sm:flex-row">
+            <a href="../docs/SAMMOK_ship_outfitting_safety_dashboard.html" class="cta-btn inline-flex min-h-12 items-center justify-center gap-3 rounded-full bg-amber px-8 py-4 text-base font-bold text-[#101826] shadow-[0_18px_40px_rgba(215,168,78,0.18)]">
+              Dashboard 보기
+              <span class="flex h-9 w-9 items-center justify-center rounded-full bg-[#101826] text-white">
+                <iconify-icon icon="solar:arrow-right-linear" width="18"></iconify-icon>
+              </span>
+            </a>
+            <a href="../proposal/삼목기업_AI훈련로드맵_2차컨설팅_구성요약.md" class="cta-btn inline-flex min-h-12 items-center justify-center gap-3 rounded-full border border-white/10 bg-white/5 px-8 py-4 text-base font-bold text-white">
+              구성요약 열기
+              <span class="flex h-9 w-9 items-center justify-center rounded-full bg-white/10 text-white">
+                <iconify-icon icon="solar:document-text-linear" width="18"></iconify-icon>
+              </span>
+            </a>
+          </div>
+
+          <div class="mt-10 grid gap-4 sm:grid-cols-2">
+            <div class="rounded-[1.6rem] border border-white/10 bg-white/5 p-5 shadow-plate">
+              <p class="text-sm text-paper">이번 회차의 초점</p>
+              <p class="mt-2 text-xl font-bold text-white">안전활동 · 보고정리 · 반장코칭</p>
+            </div>
+            <div class="rounded-[1.6rem] border border-white/10 bg-white/5 p-5 shadow-plate">
+              <p class="text-sm text-paper">권장 출발점</p>
+              <p class="mt-2 text-xl font-bold text-white">작은 데이터 구조 + 작은 훈련 루프</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="double-bezel reveal" style="transition-delay: 90ms;">
+          <div class="relative overflow-hidden p-7 lg:p-8">
+            <div class="absolute right-[-40px] top-[-30px] h-44 w-44 rounded-full bg-[radial-gradient(circle,rgba(215,168,78,0.14),transparent_68%)] blur-2xl"></div>
+            <div class="relative">
+              <p class="text-sm font-semibold text-ambersoft">Meeting Snapshot</p>
+              <h2 class="mt-3 break-kr text-3xl font-bold leading-snug text-white">오늘 결정해야 하는 것은 툴이 아니라 순서입니다</h2>
+              <p class="mt-4 break-kr text-base leading-relaxed text-paper">
+                어디부터 훈련하고, 무엇을 기록하고, 누구에게 어떤 화면을 보여줄지를 먼저 합의하면
+                이후 자동화와 AI 보조기능은 훨씬 가볍게 붙일 수 있습니다.
+              </p>
+
+              <div class="mt-8 grid gap-4">
+                <div class="rounded-[1.4rem] border border-white/10 bg-white/6 p-5">
+                  <p class="text-sm text-paper">우선 논의 축 01</p>
+                  <p class="mt-2 text-lg font-bold text-white">선박의장 안전활동의 표준화</p>
+                </div>
+                <div class="rounded-[1.4rem] border border-white/10 bg-white/6 p-5">
+                  <p class="text-sm text-paper">우선 논의 축 02</p>
+                  <p class="mt-2 text-lg font-bold text-white">반장·관리자 코칭 루프 설계</p>
+                </div>
+                <div class="rounded-[1.4rem] border border-white/10 bg-white/6 p-5">
+                  <p class="text-sm text-paper">우선 논의 축 03</p>
+                  <p class="mt-2 text-lg font-bold text-white">보고와 개선조치 데이터 연결</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="px-4 py-24 sm:px-6 lg:px-8">
+      <div class="mx-auto max-w-7xl reveal">
+        <div class="grid gap-4 rounded-[2rem] border border-white/10 bg-white/[0.04] p-6 shadow-frame md:grid-cols-4">
+          <div class="rounded-[1.5rem] border border-white/10 bg-white/[0.04] p-5">
+            <p class="text-sm text-paper">핵심 지표</p>
+            <p class="mt-2 text-3xl font-bold text-white">82.4</p>
+            <p class="mt-2 text-sm text-paper">안전활동지수 시안</p>
+          </div>
+          <div class="rounded-[1.5rem] border border-white/10 bg-white/[0.04] p-5">
+            <p class="text-sm text-paper">우선 훈련축</p>
+            <p class="mt-2 text-3xl font-bold text-white">3개</p>
+            <p class="mt-2 text-sm text-paper">안전활동 · 보고 · 코칭</p>
+          </div>
+          <div class="rounded-[1.5rem] border border-white/10 bg-white/[0.04] p-5">
+            <p class="text-sm text-paper">주요 위험군</p>
+            <p class="mt-2 text-3xl font-bold text-white">4개</p>
+            <p class="mt-2 text-sm text-paper">추락 · 협착 · 화기 · 통로</p>
+          </div>
+          <div class="rounded-[1.5rem] border border-white/10 bg-white/[0.04] p-5">
+            <p class="text-sm text-paper">권장 파일 구조</p>
+            <p class="mt-2 text-3xl font-bold text-white">GitHub</p>
+            <p class="mt-2 text-sm text-paper">site · docs · proposal · ppt</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="focus" class="px-4 py-24 sm:px-6 lg:px-8">
+      <div class="mx-auto max-w-7xl">
+        <div class="reveal break-kr">
+          <span class="inline-flex rounded-full border border-[rgba(215,168,78,0.24)] bg-[rgba(215,168,78,0.08)] px-4 py-2 text-[11px] font-bold uppercase tracking-[0.18em] text-ambersoft">Priority Topics</span>
+          <h2 class="mt-6 max-w-4xl font-display text-3xl font-bold leading-tight tracking-tight text-white sm:text-5xl">센터팀장과 함께 볼 때 바로 설명이 되는 2차 컨설팅 핵심의제</h2>
+        </div>
+
+        <div class="mt-12 grid gap-6 lg:grid-cols-[1.1fr_0.9fr]">
+          <article class="double-bezel reveal">
+            <div class="p-7 lg:p-8">
+              <p class="text-sm font-semibold text-ambersoft">Agenda Flow</p>
+              <h3 class="mt-3 break-kr text-3xl font-bold text-white">이번 회차 진행 순서</h3>
+              <div class="mt-8 grid gap-4">
+                <div class="lift rounded-[1.5rem] border border-white/10 bg-white/[0.04] p-5">
+                  <p class="text-sm font-semibold text-ambersoft">01 현재 상태 확인</p>
+                  <p class="mt-2 break-kr text-lg font-bold text-white">현행 점검표, TBM, 교육기록, 개선조치 양식을 먼저 확인합니다.</p>
+                </div>
+                <div class="lift rounded-[1.5rem] border border-white/10 bg-white/[0.04] p-5">
+                  <p class="text-sm font-semibold text-ambersoft">02 훈련 우선순위 확정</p>
+                  <p class="mt-2 break-kr text-lg font-bold text-white">공통 교육보다 반장 코칭과 반복 리스크 대응을 먼저 좁힙니다.</p>
+                </div>
+                <div class="lift rounded-[1.5rem] border border-white/10 bg-white/[0.04] p-5">
+                  <p class="text-sm font-semibold text-ambersoft">03 Dashboard 시안 검토</p>
+                  <p class="mt-2 break-kr text-lg font-bold text-white">어떤 숫자를 보여줄지보다 어떤 판단을 빨리 하게 만들지에 집중합니다.</p>
+                </div>
+                <div class="lift rounded-[1.5rem] border border-white/10 bg-white/[0.04] p-5">
+                  <p class="text-sm font-semibold text-ambersoft">04 후속 실행안 합의</p>
+                  <p class="mt-2 break-kr text-lg font-bold text-white">샘플 데이터 범위, 책임자, 다음 회차 전 준비물을 선명하게 남깁니다.</p>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article class="reveal grid gap-6" style="transition-delay: 80ms;">
+            <div class="rounded-[2rem] border border-white/10 bg-[linear-gradient(180deg,rgba(18,28,44,0.92),rgba(12,18,29,0.96))] p-7 shadow-plate">
+              <p class="text-sm font-semibold text-ambersoft">Why This Works</p>
+              <h3 class="mt-3 break-kr text-3xl font-bold text-white">AI는 처음부터 판단보다 정리에서 시작하는 편이 좋습니다</h3>
+              <p class="mt-4 break-kr text-base leading-relaxed text-paper">
+                일일보고 요약, 반복 지적 정리, 주간 이슈 목록화, 미조치 항목 추출은
+                현장 부담을 줄이면서도 빠르게 체감되는 영역입니다.
+              </p>
+            </div>
+            <div class="rounded-[2rem] border border-white/10 bg-white/[0.04] p-7 shadow-plate">
+              <p class="text-sm font-semibold text-ambersoft">Data First</p>
+              <h3 class="mt-3 break-kr text-2xl font-bold text-white">권장 공통 필드</h3>
+              <div class="mt-5 flex flex-wrap gap-3">
+                <span class="rounded-full border border-white/10 bg-white/[0.05] px-4 py-2 text-sm text-paper">일자</span>
+                <span class="rounded-full border border-white/10 bg-white/[0.05] px-4 py-2 text-sm text-paper">반 / 팀</span>
+                <span class="rounded-full border border-white/10 bg-white/[0.05] px-4 py-2 text-sm text-paper">공정</span>
+                <span class="rounded-full border border-white/10 bg-white/[0.05] px-4 py-2 text-sm text-paper">위험유형</span>
+                <span class="rounded-full border border-white/10 bg-white/[0.05] px-4 py-2 text-sm text-paper">조치상태</span>
+                <span class="rounded-full border border-white/10 bg-white/[0.05] px-4 py-2 text-sm text-paper">교육여부</span>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="dashboard" class="px-4 py-24 sm:px-6 lg:px-8">
+      <div class="mx-auto max-w-7xl">
+        <div class="reveal grid gap-6 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
+          <div class="break-kr">
+            <span class="inline-flex rounded-full border border-[rgba(215,168,78,0.24)] bg-[rgba(215,168,78,0.08)] px-4 py-2 text-[11px] font-bold uppercase tracking-[0.18em] text-ambersoft">Dashboard Preview</span>
+            <h2 class="mt-6 text-3xl font-bold leading-tight tracking-tight text-white sm:text-5xl">선박의장 안전활동지수 시안으로 대화의 축을 하나로 맞춥니다</h2>
+            <p class="mt-5 max-w-2xl text-base leading-relaxed text-paper sm:text-lg">
+              이번 시안은 실시간 시스템이 아니라, 경영진·센터팀장·현장리더가
+              무엇을 봐야 판단이 빨라지는지 보여주기 위한 운영형 화면입니다.
+            </p>
+            <div class="mt-8 grid gap-4 sm:grid-cols-2">
+              <div class="rounded-[1.5rem] border border-white/10 bg-white/[0.04] p-5">
+                <p class="text-sm text-paper">보여주는 질문 01</p>
+                <p class="mt-2 text-lg font-bold text-white">어느 팀을 먼저 코칭해야 하는가</p>
+              </div>
+              <div class="rounded-[1.5rem] border border-white/10 bg-white/[0.04] p-5">
+                <p class="text-sm text-paper">보여주는 질문 02</p>
+                <p class="mt-2 text-lg font-bold text-white">개선조치가 어디서 막히는가</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="double-bezel reveal" style="transition-delay: 100ms;">
+            <div class="p-4">
+              <div class="rounded-[1.7rem] border border-white/10 bg-[linear-gradient(180deg,rgba(11,17,27,0.96),rgba(16,24,38,0.96))] p-6">
+                <div class="grid gap-4 md:grid-cols-2">
+                  <div class="rounded-[1.4rem] border border-white/10 bg-white/[0.04] p-5">
+                    <p class="text-sm text-paper">종합 안전활동지수</p>
+                    <p class="mt-2 text-4xl font-bold text-white">82.4</p>
+                    <p class="mt-2 text-sm text-mint">전월 대비 +4.8%</p>
+                  </div>
+                  <div class="rounded-[1.4rem] border border-white/10 bg-white/[0.04] p-5">
+                    <p class="text-sm text-paper">개선조치 마감준수율</p>
+                    <p class="mt-2 text-4xl font-bold text-white">76%</p>
+                    <p class="mt-2 text-sm text-ambersoft">지연 과제 6건</p>
+                  </div>
+                  <div class="rounded-[1.4rem] border border-white/10 bg-white/[0.04] p-5 md:col-span-2">
+                    <p class="text-sm text-paper">주요 위험요인</p>
+                    <div class="mt-4 grid gap-3">
+                      <div class="flex items-center justify-between rounded-full border border-white/10 bg-white/[0.04] px-4 py-3">
+                        <span class="text-sm text-white">고소작업 추락 위험</span>
+                        <span class="text-sm font-semibold text-[#ffb1b1]">고위험</span>
+                      </div>
+                      <div class="flex items-center justify-between rounded-full border border-white/10 bg-white/[0.04] px-4 py-3">
+                        <span class="text-sm text-white">중량물 취급 / 협착</span>
+                        <span class="text-sm font-semibold text-[#ffb1b1]">고위험</span>
+                      </div>
+                      <div class="flex items-center justify-between rounded-full border border-white/10 bg-white/[0.04] px-4 py-3">
+                        <span class="text-sm text-white">화기작업 관리</span>
+                        <span class="text-sm font-semibold text-ambersoft">주의</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <a href="../docs/SAMMOK_ship_outfitting_safety_dashboard.html" class="cta-btn mt-6 inline-flex min-h-12 items-center gap-3 rounded-full border border-[rgba(215,168,78,0.22)] bg-[rgba(215,168,78,0.10)] px-6 py-4 text-base font-bold text-ambersoft">
+                  전체 대시보드 열기
+                  <span class="flex h-9 w-9 items-center justify-center rounded-full bg-white/10 text-white">
+                    <iconify-icon icon="solar:monitor-linear" width="18"></iconify-icon>
+                  </span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="next" class="px-4 py-24 sm:px-6 lg:px-8">
+      <div class="mx-auto max-w-7xl">
+        <div class="reveal rounded-[2.2rem] border border-[rgba(215,168,78,0.24)] bg-[linear-gradient(135deg,rgba(215,168,78,0.14),rgba(18,28,44,0.96))] p-8 shadow-frame lg:p-10">
+          <div class="grid gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-end">
+            <div class="break-kr">
+              <span class="inline-flex rounded-full border border-white/10 bg-white/10 px-4 py-2 text-[11px] font-bold uppercase tracking-[0.18em] text-white">Next Step</span>
+              <h2 class="mt-6 text-3xl font-bold leading-tight tracking-tight text-white sm:text-5xl">회의가 끝난 뒤 바로 이어질 수 있는 다음 단계</h2>
+              <p class="mt-5 max-w-2xl text-base leading-relaxed text-paper sm:text-lg">
+                오늘 회의에서는 범위를 넓히기보다, 작게 시작해도 의미가 남는 단위를
+                선명하게 남기는 것이 중요합니다.
+              </p>
+            </div>
+            <div class="grid gap-4">
+              <div class="rounded-[1.5rem] border border-white/10 bg-white/10 p-5">
+                <p class="text-sm text-paper">Step 1</p>
+                <p class="mt-2 text-lg font-bold text-white">현행 양식 4종 확보</p>
+              </div>
+              <div class="rounded-[1.5rem] border border-white/10 bg-white/10 p-5">
+                <p class="text-sm text-paper">Step 2</p>
+                <p class="mt-2 text-lg font-bold text-white">샘플 데이터 2주치 정리</p>
+              </div>
+              <div class="rounded-[1.5rem] border border-white/10 bg-white/10 p-5">
+                <p class="text-sm text-paper">Step 3</p>
+                <p class="mt-2 text-lg font-bold text-white">반장 코칭 시범 운영안 확정</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-8 flex flex-col gap-4 sm:flex-row">
+            <a href="../proposal/삼목기업_AI훈련로드맵_2차컨설팅_회의록_반완성본.md" class="cta-btn inline-flex min-h-12 items-center justify-center gap-3 rounded-full bg-white px-8 py-4 text-base font-bold text-[#101826]">
+              회의록 반완성본 열기
+              <span class="flex h-9 w-9 items-center justify-center rounded-full bg-[#101826] text-white">
+                <iconify-icon icon="solar:notes-linear" width="18"></iconify-icon>
+              </span>
+            </a>
+            <a href="../proposal/삼목기업_AI훈련로드맵_2차컨설팅_발표멘트_QA.md" class="cta-btn inline-flex min-h-12 items-center justify-center gap-3 rounded-full border border-white/14 bg-white/8 px-8 py-4 text-base font-bold text-white">
+              발표 멘트 / Q&A 보기
+              <span class="flex h-9 w-9 items-center justify-center rounded-full bg-white/10 text-white">
+                <iconify-icon icon="solar:chat-round-linear" width="18"></iconify-icon>
+              </span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="px-4 pb-10 sm:px-6 lg:px-8">
+    <div class="mx-auto flex max-w-7xl flex-col gap-5 border-t border-white/10 pt-6 text-sm text-paper md:flex-row md:items-center md:justify-between">
+      <div>
+        <p class="font-semibold text-white">삼목기업 AI 훈련로드맵</p>
+        <p class="mt-1 break-kr">2차 컨설팅 허브 · 선박의장 안전활동 · 코칭 · Dashboard</p>
+      </div>
+      <div class="flex flex-wrap gap-4">
+        <a class="nav-link hover:text-white" href="#overview">개요</a>
+        <a class="nav-link hover:text-white" href="#focus">핵심의제</a>
+        <a class="nav-link hover:text-white" href="#dashboard">Dashboard</a>
+        <a class="nav-link hover:text-white" href="#next">다음단계</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const revealItems = document.querySelectorAll(".reveal");
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible");
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    revealItems.forEach((item) => revealObserver.observe(item));
+  </script>
+</body>
+</html>
