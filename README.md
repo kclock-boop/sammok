@@ -14,11 +14,11 @@
 ## 바로가기
 
 - 컨설팅 허브 페이지: [site/index.html](./site/index.html)
-- GitHub Pages 메인: [https://kclock-boop.github.io/sammok/](https://kclock-boop.github.io/sammok/)
-- 허브페이지 직접열기: [https://kclock-boop.github.io/sammok/site/index.html](https://kclock-boop.github.io/sammok/site/index.html)
+- GitHub Pages 메인 (PC/휴대폰 공통 링크): [https://kclock-boop.github.io/sammok/](https://kclock-boop.github.io/sammok/)
+- 허브페이지 직접열기 (PC/휴대폰 공통 링크): [https://kclock-boop.github.io/sammok/site/index.html](https://kclock-boop.github.io/sammok/site/index.html)
 - 1차 컨설팅 HTML 시안 1 직접열기: [https://kclock-boop.github.io/sammok/docs/1st-consulting/index.html](https://kclock-boop.github.io/sammok/docs/1st-consulting/index.html)
 - 1차 컨설팅 HTML 시안 2 직접열기: [https://kclock-boop.github.io/sammok/docs/1st-consulting/index1.html](https://kclock-boop.github.io/sammok/docs/1st-consulting/index1.html)
-- 2차 대시보드 직접열기: [https://kclock-boop.github.io/sammok/docs/SAMMOK_ship_outfitting_safety_dashboard.html](https://kclock-boop.github.io/sammok/docs/SAMMOK_ship_outfitting_safety_dashboard.html)
+- 2차 대시보드 직접열기 (PC/휴대폰 공통 링크): [https://kclock-boop.github.io/sammok/docs/SAMMOK_ship_outfitting_safety_dashboard.html](https://kclock-boop.github.io/sammok/docs/SAMMOK_ship_outfitting_safety_dashboard.html)
 - 선박의장 안전활동지수 Dashboard: [docs/SAMMOK_ship_outfitting_safety_dashboard.html](./docs/SAMMOK_ship_outfitting_safety_dashboard.html)
 - 1차 컨설팅 HTML 시안 1: [docs/1st-consulting/index.html](./docs/1st-consulting/index.html)
 - 1차 컨설팅 HTML 시안 2: [docs/1st-consulting/index1.html](./docs/1st-consulting/index1.html)
@@ -88,18 +88,18 @@
 ### 1) 담당자에게 보내는 기본 문구
 
 안녕하세요. 검토용 링크 전달드립니다.  
-삼목기업 소개 페이지: https://kclock-boop.github.io/sammok/  
-안전활동지수 대시보드: https://kclock-boop.github.io/sammok/docs/SAMMOK_ship_outfitting_safety_dashboard.html
+삼목기업 소개 페이지(PC/휴대폰 공통): https://kclock-boop.github.io/sammok/  
+안전활동지수 대시보드(PC/휴대폰 공통): https://kclock-boop.github.io/sammok/docs/SAMMOK_ship_outfitting_safety_dashboard.html
 
 ### 2) 짧은 1줄 문구
 
-삼목기업 검토용 링크 전달드립니다. 소개 페이지: https://kclock-boop.github.io/sammok/ / 대시보드: https://kclock-boop.github.io/sammok/docs/SAMMOK_ship_outfitting_safety_dashboard.html
+삼목기업 검토용 링크 전달드립니다. 소개 페이지(PC/휴대폰 공통): https://kclock-boop.github.io/sammok/ / 대시보드(PC/휴대폰 공통): https://kclock-boop.github.io/sammok/docs/SAMMOK_ship_outfitting_safety_dashboard.html
 
 ### 3) 조금 더 부드러운 문구
 
-안녕하세요. 2026년 8월 28일(금) 컨설팅 검토용 링크 먼저 공유드립니다.  
-- 소개 페이지: https://kclock-boop.github.io/sammok/  
-- 대시보드: https://kclock-boop.github.io/sammok/docs/SAMMOK_ship_outfitting_safety_dashboard.html
+안녕하세요. 2026년 8월 28일(금) 예정 컨설팅 검토용 링크 먼저 공유드립니다.  
+- 소개 페이지(PC/휴대폰 공통): https://kclock-boop.github.io/sammok/  
+- 대시보드(PC/휴대폰 공통): https://kclock-boop.github.io/sammok/docs/SAMMOK_ship_outfitting_safety_dashboard.html
 
 ## 비고
 
