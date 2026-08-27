@@ -12,6 +12,7 @@
 ## 바로가기
 
 - 컨설팅 허브 페이지: [site/index.html](./site/index.html)
+- GitHub Pages 공개 주소 예정: `https://kclock-boop.github.io/sammok/site/index.html`
 - 선박의장 안전활동지수 Dashboard: [docs/SAMMOK_ship_outfitting_safety_dashboard.html](./docs/SAMMOK_ship_outfitting_safety_dashboard.html)
 - 2차 컨설팅 구성요약: [proposal/삼목기업_AI훈련로드맵_2차컨설팅_구성요약.md](./proposal/%EC%82%BC%EB%AA%A9%EA%B8%B0%EC%97%85_AI%ED%9B%88%EB%A0%A8%EB%A1%9C%EB%93%9C%EB%A7%B5_2%EC%B0%A8%EC%BB%A8%EC%84%A4%ED%8C%85_%EA%B5%AC%EC%84%B1%EC%9A%94%EC%95%BD.md)
 - 발표 멘트 / Q&A: [proposal/삼목기업_AI훈련로드맵_2차컨설팅_발표멘트_QA.md](./proposal/%EC%82%BC%EB%AA%A9%EA%B8%B0%EC%97%85_AI%ED%9B%88%EB%A0%A8%EB%A1%9C%EB%93%9C%EB%A7%B5_2%EC%B0%A8%EC%BB%A8%EC%84%A4%ED%8C%85_%EB%B0%9C%ED%91%9C%EB%A9%98%ED%8A%B8_QA.md)

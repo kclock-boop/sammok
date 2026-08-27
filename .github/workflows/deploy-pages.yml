@@ -30,11 +30,25 @@ jobs:
       - name: Build static bundle
         run: |
           mkdir -p public
-          cp site/index.html public/index.html
+          cp -r site public/site
           cp README.md public/README.md
           cp -r docs public/docs
           cp -r proposal public/proposal
           cp -r ppt public/ppt
+          cat > public/index.html <<'EOF'
+          <!DOCTYPE html>
+          <html lang="ko">
+          <head>
+            <meta charset="UTF-8" />
+            <meta http-equiv="refresh" content="0; url=./site/index.html" />
+            <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+            <title>삼목기업 | AI 훈련로드맵</title>
+          </head>
+          <body>
+            <p><a href="./site/index.html">삼목기업 AI 훈련로드맵 페이지로 이동</a></p>
+          </body>
+          </html>
+          EOF
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
